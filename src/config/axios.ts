@@ -5,7 +5,7 @@ export interface ServerResponse<T> {
 }
 
 export const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://server-tcu-2021.herokuapp.com',
   headers: {
     Authorization: localStorage.getItem('token'),
   },
