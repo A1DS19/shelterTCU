@@ -34,3 +34,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+//Deploy en Netlify!

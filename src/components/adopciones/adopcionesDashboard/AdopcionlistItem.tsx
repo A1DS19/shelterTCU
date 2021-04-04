@@ -20,8 +20,9 @@ export const AdopcionListItem: React.FC<EventListItemProps> = ({ pet }): JSX.Ele
   };
 
   return (
-    <Card fluid as={Link} to={`/adoption/${pet._id}`}>
+    <Card className='img-container' fluid as={Link} to={`/adoption/${pet._id}`}>
       <Image
+        className='img-listItem'
         fluid
         label={{
           color: `${JSON.parse(pet.adopted) ? 'red' : 'green'}`,

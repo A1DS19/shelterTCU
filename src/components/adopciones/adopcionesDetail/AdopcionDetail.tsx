@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Grid } from 'semantic-ui-react';
-import { usePetData } from '../../../hooks/usePet';
 import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearSelectedPet, fetchSelectedPet } from '../../../actions/pets/pets';
@@ -47,15 +46,9 @@ export const AdopcionDetail = ({ match }: Props) => {
         <Grid.Row>
           <Grid.Column width={16}>
             {selectedPet?.photosUrl && (
-              <Carousel
-                autoPlay
-                // {dynamicHeight}
-                infiniteLoop
-                showStatus={false}
-                showThumbs={false}
-              >
+              <Carousel autoPlay infiniteLoop showStatus={false} showThumbs={false}>
                 {selectedPet?.photosUrl!.map((photo, index) => (
-                  <div style={{ height: '320px' }} key={index}>
+                  <div style={{ height: '550px' }} key={index}>
                     <img src={photo} alt='pic' />
                   </div>
                 ))}
