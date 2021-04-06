@@ -1,6 +1,6 @@
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import React from 'react';
-import { Button, Grid, Header, Icon, Label, Segment } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Label, List, Segment } from 'semantic-ui-react';
 import { TextInput } from './common/TextInput';
 import { newsLetterValidationSchema } from './common/validationSchemas';
 import { Link } from 'react-scroll';
@@ -19,62 +19,54 @@ export const Footer = () => {
   return (
     <Segment style={{ marginTop: '50px' }}>
       <Header as='h2' textAlign='center' content='ADOPTME.CR' />
+
       <Grid>
-        <Grid.Column width={10}>
-          <h3>
-            SEGUIR <span>#ADOPTMECR</span>{' '}
-          </h3>
-          <div>
-            <Icon size='large' name='facebook' />
-            <Icon size='large' name='instagram' />
-            <Icon size='large' name='twitter' />
-          </div>
+        <Grid.Column width={10} floated='left'>
+          <Header as='h3' content='INFO' />
+          <List>
+            <List.Item>
+              <List.Icon name='building' />
+              <List.Content content='Territorio de Zaguates' />
+            </List.Item>
+
+            <List.Item>
+              <List.Icon name='location arrow' />
+              <List.Content content='Heredia, Costa Rica' />
+            </List.Item>
+
+            <List.Item>
+              <List.Icon name='phone' />
+              <List.Content content='+506 8815 2514' />
+            </List.Item>
+
+            <List.Item>
+              <List.Icon name='mail' />
+              <List.Content content='info@territoriodezaguates.com' />
+            </List.Item>
+          </List>
         </Grid.Column>
 
-        <Grid.Column width={6}>
-          <h3>NEWSLETTER</h3>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={newsLetterValidationSchema}
-            onSubmit={(
-              values: newsLetterValuesProp,
-              helpers: FormikHelpers<newsLetterValuesProp>
-            ) => {
-              try {
-                helpers.setSubmitting(true);
-                console.log(values);
-              } catch (error) {
-                helpers.setErrors({ error: error.message });
-              } finally {
-                helpers.setSubmitting(false);
-              }
-            }}
-          >
-            {(props: FormikProps<newsLetterValuesProp>) => (
-              <Form className='ui form'>
-                {props.errors.error && <ErrorLabel errorMessage={props.errors.error} />}
-                <TextInput
-                  name='email'
-                  placeholder='EMAIL'
-                  value={props.values.email}
-                  onChange={props.handleChange}
-                  onBlur={props.handleBlur}
-                />
-                <Button
-                  loading={props.isSubmitting}
-                  //disabled={!props.isValid || !props.dirty || props.isSubmitting}
-                  disabled={true}
-                  type='submit'
-                  fluid
-                  size='large'
-                  color='orange'
-                  content='SUBSCRIBIR'
-                />
-              </Form>
-            )}
-          </Formik>
+        <Grid.Column width={2} floated='right'>
+          <Header as='h3' content='SIGUENOS' />
+          <Button
+            circular
+            color='facebook'
+            icon='facebook'
+            as='a'
+            href={`https://www.facebook.com/territoriodezaguates/`}
+            target='_blank'
+          />
+          <Button
+            circular
+            color='instagram'
+            icon='instagram'
+            as='a'
+            href={`https://www.instagram.com/territorio_de_zaguates/?hl=en`}
+            target='_blank'
+          />
         </Grid.Column>
       </Grid>
+
       <Link to='nav' spy={true} smooth={true}>
         <div
           style={{

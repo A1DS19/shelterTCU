@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Item, Segment } from 'semantic-ui-react';
+import { Item, Segment, Divider } from 'semantic-ui-react';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { AdopcionDetailComments } from './AdopcionDetailComments';
 import { AdopcionDetailMessage } from './AdopcionDetailMessage';
