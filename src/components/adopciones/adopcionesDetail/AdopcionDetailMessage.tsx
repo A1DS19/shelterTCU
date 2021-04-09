@@ -4,7 +4,7 @@ import { Grid, Icon } from 'semantic-ui-react';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { StoreState } from '../../../reducers';
 import { ContactForm } from './ContactForm';
-
+import { isMobileOnly } from 'react-device-detect';
 interface Props {
   selectedPet: PetsData | undefined;
 }
@@ -15,7 +15,7 @@ export const AdopcionDetailMessage: React.FC<Props> = ({ selectedPet }) => {
   return (
     <Grid style={{ marginTop: '10px' }} centered={currentUser ? false : true}>
       {currentUser && (
-        <Grid.Column width={7}>
+        <Grid.Column mobile={16} tablet={7} computer={7}>
           <h2 style={{ margin: 0 }}>Departe de:</h2>
           <h3 style={{ margin: 0 }}>
             {' '}
@@ -26,7 +26,7 @@ export const AdopcionDetailMessage: React.FC<Props> = ({ selectedPet }) => {
           </p>
         </Grid.Column>
       )}
-      <Grid.Column width={9}>
+      <Grid.Column mobile={16} tablet={7} computer={9}>
         <span>SU MENSAJE DEBE TENER (5000 CARACTERES COMO MAXIMO)</span>
         <ul>
           <li>Puede agregar preguntas sobre la mascota</li>

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { Item, Segment, Divider } from 'semantic-ui-react';
+import { Item, Segment } from 'semantic-ui-react';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
-import { AdopcionDetailComments } from './AdopcionDetailComments';
+import { isMobileOnly } from 'react-device-detect';
 import { AdopcionDetailMessage } from './AdopcionDetailMessage';
 
 interface Props {
@@ -30,7 +30,11 @@ export const AdopcionDetailContact: React.FC<Props> = ({
                 alt='petPic'
               />
             )}
-            <Item.Content style={{ marginTop: '20px' }}>
+            <Item.Content
+              style={{
+                marginTop: '20px',
+              }}
+            >
               <Item.Header content={`Pregunta acerca de ${selectedPet?.name}`} />
               <Item.Description>
                 {selectedPet?.breed}

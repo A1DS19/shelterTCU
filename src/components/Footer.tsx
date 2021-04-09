@@ -21,7 +21,7 @@ export const Footer = () => {
       <Header as='h2' textAlign='center' content='ADOPTME.CR' />
 
       <Grid>
-        <Grid.Column width={10} floated='left'>
+        <Grid.Column mobile={16} tablet={10} computer={10} floated='left'>
           <Header as='h3' content='INFO' />
           <List>
             <List.Item>
@@ -46,7 +46,7 @@ export const Footer = () => {
           </List>
         </Grid.Column>
 
-        <Grid.Column width={2} floated='right'>
+        <Grid.Column mobile={16} tablet={2} computer={2} floated='right'>
           <Header as='h3' content='SIGUENOS' />
           <Button
             circular

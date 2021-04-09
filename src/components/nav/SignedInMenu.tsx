@@ -3,6 +3,7 @@ import { Dropdown, Image, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AuthPayload } from '../../actions/auth';
 import { AdminMenu } from './AdminMenu';
+import { isMobileOnly } from 'react-device-detect';
 
 interface Props {
   handleSignOut: () => void;
@@ -17,7 +18,10 @@ export const SignedInMenu: React.FC<Props> = ({
     <Fragment>
       <Menu.Item position='right'>
         <Image avatar spaced='right' src={currentUser?.photoURL || '/assets/user.png'} />
-        <Dropdown pointing='top left' text={currentUser?.displayName}>
+        <Dropdown
+          pointing='top left'
+          text={!isMobileOnly ? currentUser?.displayName : undefined}
+        >
           <Dropdown.Menu>
             <Dropdown.Item
               as={Link}

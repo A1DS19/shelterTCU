@@ -10,6 +10,7 @@ import { AdopcionDetailSidebar } from './AdopcionDetailSidebar';
 import { AdopcionDetailContact } from './AdopcionDetailContact';
 import { AdopcionDetailPetBreedList } from './AdopcionDetailPetBreedList';
 import { LoaderComponent } from '../../common/Loader';
+import { isMobileOnly } from 'react-device-detect';
 import { ErrorComponent } from '../../common/Error';
 
 export interface MatchParams {
@@ -40,15 +41,20 @@ export const AdopcionDetail = ({ match }: Props) => {
     return <LoaderComponent />;
   }
 
+  console.log(isMobileOnly);
+
   return (
     <Fragment>
       <Grid columns={3} relaxed='very'>
         <Grid.Row>
-          <Grid.Column width={16}>
+          <Grid.Column mobile={16} computer={16}>
             {selectedPet?.photosUrl && (
               <Carousel autoPlay infiniteLoop showStatus={false} showThumbs={false}>
                 {selectedPet?.photosUrl!.map((photo, index) => (
-                  <div style={{ height: '550px' }} key={index}>
+                  <div
+                    style={isMobileOnly ? { height: '300px' } : { height: '550px' }}
+                    key={index}
+                  >
                     <img src={photo} alt='pic' />
                   </div>
                 ))}
@@ -58,16 +64,19 @@ export const AdopcionDetail = ({ match }: Props) => {
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={10}>
+          <Grid.Column mobile={16} computer={10}>
             <AdopcionDetailInfo selectedPet={selectedPet} />
           </Grid.Column>
-          <Grid.Column width={6}>
-            <AdopcionDetailSidebar selectedPet={selectedPet} />
+          <Grid.Column mobile={16} computer={6}>
+            <AdopcionDetailSidebar
+              authenticated={authenticated}
+              selectedPet={selectedPet}
+            />
           </Grid.Column>
         </Grid.Row>
 
         <Grid.Row id='contact-form'>
-          <Grid.Column width={16}>
+          <Grid.Column mobile={16} tablet={16} computer={16}>
             <AdopcionDetailContact
               authenticated={authenticated}
               selectedPet={selectedPet}
@@ -76,7 +85,7 @@ export const AdopcionDetail = ({ match }: Props) => {
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column width={16}>
+          <Grid.Column mobile={16} tablet={16} computer={16}>
             <AdopcionDetailPetBreedList petsData={petsData} selectedPet={selectedPet} />
           </Grid.Column>
         </Grid.Row>

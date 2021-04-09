@@ -5,6 +5,7 @@ import { StoreState } from '../../../reducers/index';
 import { AdopcionFilters } from './AdopcionFilter';
 import { AdopcionList } from './AdopcionList';
 import { AdopcionLoader } from './AdopcionLoader';
+import { isMobileOnly } from 'react-device-detect';
 import * as petsActions from '../../../actions/pets/pets';
 
 export const AdopcionDashboard = (): JSX.Element => {
@@ -18,7 +19,13 @@ export const AdopcionDashboard = (): JSX.Element => {
 
   return (
     <Grid>
-      <Grid.Column width={10}>
+      {isMobileOnly && (
+        <Grid.Column mobile={15} tablet={6} computer={6}>
+          <AdopcionFilters />
+        </Grid.Column>
+      )}
+
+      <Grid.Column mobile={16} computer={10}>
         {loading && (
           <Fragment>
             <AdopcionLoader />
@@ -30,9 +37,11 @@ export const AdopcionDashboard = (): JSX.Element => {
         <AdopcionList loading={loading} petsData={petsData} />
       </Grid.Column>
 
-      <Grid.Column width={6}>
-        <AdopcionFilters />
-      </Grid.Column>
+      {!isMobileOnly && (
+        <Grid.Column mobile={15} tablet={6} computer={6}>
+          <AdopcionFilters />
+        </Grid.Column>
+      )}
 
       <Pagination
         activePage={page + 1}

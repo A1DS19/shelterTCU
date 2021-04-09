@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { Button, Header, Segment, Icon } from 'semantic-ui-react';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { Link } from 'react-scroll';
-import { useState } from 'react';
+import { isMobileOnly } from 'react-device-detect';
+
 import {
   FacebookShareButton,
   RedditShareButton,
@@ -12,9 +13,13 @@ import {
 } from 'react-share';
 interface Props {
   selectedPet: PetsData | undefined;
+  authenticated: boolean;
 }
 
-export const AdopcionDetailSidebar: React.FC<Props> = ({ selectedPet }) => {
+export const AdopcionDetailSidebar: React.FC<Props> = ({
+  selectedPet,
+  authenticated,
+}) => {
   const renderSocialShare = () => (
     <Fragment>
       <Header
@@ -45,7 +50,7 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({ selectedPet }) => {
   );
 
   return (
-    <Segment textAlign='center'>
+    <Segment style={isMobileOnly ? { marginTop: '20px' } : {}} textAlign='center'>
       <Header style={{ marginBottom: '5px' }} as='h3'>
         Preguntar por {selectedPet?.name}
       </Header>
@@ -69,9 +74,11 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({ selectedPet }) => {
         />
       </div>
 
-      <Button fluid style={{ marginBottom: '10px' }} basic size='medium' color='orange'>
-        <Icon name='heart outline' /> AGREGAR A FAVORITOS
-      </Button>
+      {authenticated && (
+        <Button fluid style={{ marginBottom: '10px' }} basic size='medium' color='orange'>
+          <Icon name='heart outline' /> AGREGAR A FAVORITOS
+        </Button>
+      )}
 
       {renderSocialShare()}
     </Segment>

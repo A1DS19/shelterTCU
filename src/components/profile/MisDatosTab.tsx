@@ -50,7 +50,7 @@ export const MisDatosTab: React.FC<Props> = ({ loading, currentUser }) => {
       >
         {(props: FormikProps<FormValues>) => (
           <Grid>
-            <Grid.Column width={9}>
+            <Grid.Column mobile={16} tablet={9} computer={9}>
               <Form className='ui form'>
                 {props.errors.error && <ErrorLabel errorMessage={props.errors.error} />}
 
@@ -90,7 +90,7 @@ export const MisDatosTab: React.FC<Props> = ({ loading, currentUser }) => {
                 />
               </Form>
             </Grid.Column>
-            <Grid.Column width={7}>
+            <Grid.Column mobile={16} tablet={7} computer={7}>
               <PhotoUpload currentUser={currentUser} />
             </Grid.Column>
           </Grid>
