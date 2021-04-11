@@ -90,9 +90,9 @@ export const MisDatosTab: React.FC<Props> = ({ loading, currentUser }) => {
                 />
               </Form>
             </Grid.Column>
-            <Grid.Column mobile={16} tablet={7} computer={7}>
+            {/* <Grid.Column mobile={16} tablet={7} computer={7}>
               <PhotoUpload currentUser={currentUser} />
-            </Grid.Column>
+            </Grid.Column> */}
           </Grid>
         )}
       </Formik>

@@ -17,7 +17,7 @@ export const SignedInMenu: React.FC<Props> = ({
   return (
     <Fragment>
       <Menu.Item position='right'>
-        <Image avatar spaced='right' src={currentUser?.photoURL || '/assets/user.png'} />
+        <Image avatar spaced='right' src={'/assets/user.png'} />
         <Dropdown
           pointing='top left'
           text={!isMobileOnly ? currentUser?.displayName : undefined}

@@ -30,7 +30,7 @@ export const Navbar = (): JSX.Element => {
         <Container>
           <Menu.Item header onClick={() => history.push('/')}>
             <img src='/assets/logo.svg' alt='logo' style={{ marginRight: '15px' }} />
-            TERRITORIO DE ZAGUATES
+            {!isMobileOnly ? 'TERRITORIO DE ZAGUATES' : null}
           </Menu.Item>
 
           <Menu.Item as={NavLink} to='/adoptions' name='MASCOTAS' />

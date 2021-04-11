@@ -74,13 +74,13 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({
         />
       </div>
 
+      {renderSocialShare()}
+
       {authenticated && (
-        <Button fluid style={{ marginBottom: '10px' }} basic size='medium' color='orange'>
+        <Button fluid style={{ marginTop: '10px' }} basic size='medium' color='orange'>
           <Icon name='heart outline' /> AGREGAR A FAVORITOS
         </Button>
       )}
-
-      {renderSocialShare()}
     </Segment>
   );
 };

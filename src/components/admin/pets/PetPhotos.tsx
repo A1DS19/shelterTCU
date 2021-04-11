@@ -55,10 +55,16 @@ export const PetPhotos: React.FC<Props> = ({ selectedPet }) => {
               as='h3'
               textAlign='center'
               content={
-                selectedPet ? `Agregar mas Fotos a ${selectedPet.name}` : 'Agregar Fotos'
+                selectedPet?.photosUrl?.length! < 2
+                  ? selectedPet
+                    ? `Agregar mas Fotos a ${selectedPet.name}`
+                    : 'Agregar Fotos'
+                  : `${selectedPet?.name} ya tiene 3 fotos ya no se puede subir mas.`
               }
             />
-            <PhotosDropzone handleSubmit={handlePhotosSubmit} setFiles={setFiles} />
+            {selectedPet?.photosUrl?.length! < 2 && (
+              <PhotosDropzone handleSubmit={handlePhotosSubmit} setFiles={setFiles} />
+            )}
           </Grid.Column>
         )}
       </Grid.Row>
