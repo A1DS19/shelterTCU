@@ -29,8 +29,8 @@ export const Navbar = (): JSX.Element => {
       <Menu inverted fixed='top'>
         <Container>
           <Menu.Item header onClick={() => history.push('/')}>
-            <img src='/assets/pet-house.png' alt='logo' style={{ marginRight: '15px' }} />
-            ADOPTME.CR
+            <img src='/assets/logo.svg' alt='logo' style={{ marginRight: '15px' }} />
+            TERRITORIO DE ZAGUATES
           </Menu.Item>
 
           <Menu.Item as={NavLink} to='/adoptions' name='MASCOTAS' />

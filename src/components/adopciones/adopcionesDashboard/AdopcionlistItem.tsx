@@ -39,7 +39,9 @@ export const AdopcionListItem: React.FC<EventListItemProps> = ({ pet }): JSX.Ele
         <Card.Meta>
           <Icon name='point' /> {pet.location}
         </Card.Meta>
-        <Card.Description>{pet.description}</Card.Description>
+        <Card.Description style={{ whiteSpace: 'pre-wrap' }}>
+          {pet.description.slice(0, 50) + '...'}
+        </Card.Description>
       </Card.Content>
     </Card>
   );

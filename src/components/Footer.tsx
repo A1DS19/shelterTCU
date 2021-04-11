@@ -18,7 +18,7 @@ export const Footer = () => {
 
   return (
     <Segment style={{ marginTop: '50px' }}>
-      <Header as='h2' textAlign='center' content='ADOPTME.CR' />
+      <Header as='h2' textAlign='center' content='TERRITORIO DE ZAGUATES' />
 
       <Grid>
         <Grid.Column mobile={16} tablet={10} computer={10} floated='left'>

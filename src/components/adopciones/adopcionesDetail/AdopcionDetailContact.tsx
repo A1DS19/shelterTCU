@@ -36,11 +36,6 @@ export const AdopcionDetailContact: React.FC<Props> = ({
               }}
             >
               <Item.Header content={`Pregunta acerca de ${selectedPet?.name}`} />
-              <Item.Description>
-                {selectedPet?.breed}
-                <br />
-                {selectedPet?.description}
-              </Item.Description>
             </Item.Content>
           </Item>
         </Item.Group>

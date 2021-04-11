@@ -22,7 +22,9 @@ export const AdopcionDetailInfo: React.FC<Props> = ({ selectedPet }) => {
           <Divider />
           <Item.Header as='h3' content='Acerca' />
           <Item.Header as='h5' content='Caracteristicas' />
-          <Item.Description>{selectedPet?.description}</Item.Description>
+          <Item.Description style={{ whiteSpace: 'pre-wrap' }}>
+            {selectedPet?.description}
+          </Item.Description>
         </Item.Content>
       </Item.Group>
     </Segment>
