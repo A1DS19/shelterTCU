@@ -33,7 +33,11 @@ export const Navbar = (): JSX.Element => {
             {!isMobileOnly ? 'TERRITORIO DE ZAGUATES' : null}
           </Menu.Item>
 
-          <Menu.Item as={NavLink} to='/adoptions' name='MASCOTAS' />
+          <Menu.Item
+            as={NavLink}
+            to='/adoptions'
+            name={!isMobileOnly ? 'MASCOTAS' : '/assets/pawprint.png'}
+          />
 
           {authenticated ? (
             <Fragment>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, FormikHelpers, FormikProps, Form } from 'formik';
-import { Button, Divider, Label } from 'semantic-ui-react';
+import { Button, Divider, Label, Radio } from 'semantic-ui-react';
 import { TextInput } from '../common/TextInput';
 import { registerValidationSchema } from '../common/validationSchemas';
 import { ModalWrapper } from '../common/modals/ModalWrapper';
@@ -16,6 +16,7 @@ export interface RegisterFormValues {
   displayName: string;
   cedula: string;
   authError?: string;
+  donation?: string;
 }
 
 const RegisterForm = () => {
@@ -25,6 +26,7 @@ const RegisterForm = () => {
     displayName: '',
     password: '',
     cedula: '',
+    donation: 'true',
   };
 
   return (
@@ -60,7 +62,7 @@ const RegisterForm = () => {
             />
             <TextInput
               name='displayName'
-              placeholder='NOMBRE USUARIO'
+              placeholder='NOMBRE'
               value={props.values.displayName}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
@@ -79,6 +81,15 @@ const RegisterForm = () => {
               name='password'
               placeholder='CONTRASENA'
               value={props.values.password}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+
+            <Radio
+              label='Si decido a adoptar a una mascota, estoy dispuesto a hacer una donación de 10 mil colones para gastos de adopción.'
+              style={{ marginBottom: '10px' }}
+              name='donation'
+              value={props.values.donation}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />

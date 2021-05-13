@@ -33,11 +33,22 @@ export const UsersTableBody: React.FC<Props> = ({ usersData }) => {
           <Table.Cell content={user.email} />
           <Table.Cell content={user?.phone || 'No tiene'} />
           <Table.Cell content={user?.direction || 'No tiene'} />
-          <Table.Cell content={`${user.name} ${user.lastName}`} />
+          <Table.Cell
+            content={user.name ? `${user.name} ${user.lastName}` : user.displayName}
+          />
 
           <Table.Cell
             content={
               JSON.parse(user?.isAdmin!) ? (
+                <Icon color='green' name='check' />
+              ) : (
+                <Icon color='red' name='x' />
+              )
+            }
+          />
+          <Table.Cell
+            content={
+              JSON.parse(user?.donation!) ? (
                 <Icon color='green' name='check' />
               ) : (
                 <Icon color='red' name='x' />

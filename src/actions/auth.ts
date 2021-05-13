@@ -21,6 +21,7 @@ export interface AuthPayload {
   direction?: string;
   cedula?: string;
   phone?: string;
+  donation?: string;
 }
 
 export interface SignInAction {

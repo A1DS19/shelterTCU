@@ -205,14 +205,16 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
                         )}
                       </Grid.Column>
                     </Grid>
-                    <TextInput
-                      label='Encargado de adopción'
-                      name='employee'
-                      placeholder='Encargado de adopción'
-                      value={props.values.employee}
-                      onChange={props.handleChange}
-                      onBlur={props.handleBlur}
-                    />
+                    {props.values.adopted !== 'false' && (
+                      <TextInput
+                        label='Encargado de adopción'
+                        name='employee'
+                        placeholder='Encargado de adopción'
+                        value={props.values.employee}
+                        onChange={props.handleChange}
+                        onBlur={props.handleBlur}
+                      />
+                    )}
                     <TextArea
                       label='Descripccion'
                       name='description'

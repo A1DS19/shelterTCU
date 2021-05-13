@@ -47,6 +47,7 @@ export const UserList = () => {
             <Table.HeaderCell>DIRECCIÓN</Table.HeaderCell>
             <Table.HeaderCell>NOMBRE</Table.HeaderCell>
             <Table.HeaderCell>ADMIN</Table.HeaderCell>
+            <Table.HeaderCell>DONANTE</Table.HeaderCell>
             <Table.HeaderCell>ACCION</Table.HeaderCell>
           </Table.Row>
         </Table.Header>

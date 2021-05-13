@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Header, Image, Icon } from 'semantic-ui-react';
+import { Grid, Header, Image, Icon, Message } from 'semantic-ui-react';
 import { addFavorite, getFavorite } from '../../actions/auth';
 import { StoreState } from '../../reducers';
 import { isMobileOnly } from 'react-device-detect';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { LoaderComponent } from '../common/Loader';
 import { toTitleCase } from '../../util/upperCase';
 
@@ -25,6 +25,16 @@ export const Wishlist: React.FC<WishlistProps> = ({}): JSX.Element => {
 
   if (loading) {
     return <LoaderComponent />;
+  }
+
+  if (wishlist && wishlist?.length < 1) {
+    return (
+      <Message
+        icon='exclamation'
+        header='No tienes favoritos'
+        content={<Link to='/'>Ver mascotas</Link>}
+      />
+    );
   }
 
   return (

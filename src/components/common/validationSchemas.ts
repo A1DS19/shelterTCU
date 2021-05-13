@@ -69,7 +69,12 @@ export const createPetValidationSchema = Yup.object({
       is: (val: string) => val !== 'false',
       then: Yup.string().required('La cedula del adoptante es requerida'),
     }),
-  employee: Yup.string().required('El nombre del empleado es requerido'),
+  employee: Yup.string()
+    .notRequired()
+    .when('adopted', {
+      is: (val: string) => val !== 'false',
+      then: Yup.string().required('El nombre del empleado es requerido'),
+    }),
 });
 
 export const updatePersonalDataValidationSchema = Yup.object({
