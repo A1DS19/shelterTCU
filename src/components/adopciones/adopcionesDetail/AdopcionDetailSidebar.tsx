@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addFavorite } from '../../../actions/auth';
 import { StoreState } from '../../../reducers';
 import { toTitleCase } from '../../../util/upperCase';
+import { openModal } from '../../../actions/modals';
 interface Props {
   selectedPet: PetsData | undefined;
   authenticated: boolean;
@@ -82,7 +83,7 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({
 
         {renderSocialShare()}
 
-        {authenticated && (
+        {authenticated ? (
           <Button
             onClick={() => {
               dispatch(
@@ -113,6 +114,15 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({
               </div>
             )}
           </Button>
+        ) : (
+          <Button
+            style={{ marginTop: '10px' }}
+            circular
+            color='orange'
+            fluid
+            content='Iniciar sesion para agregar favorito'
+            onClick={() => dispatch(openModal({ type: 'LoginForm' }))}
+          />
         )}
       </Segment>
       <Segment color='red'>
