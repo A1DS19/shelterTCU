@@ -4,7 +4,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'react-dropzone-uploader/dist/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -13,7 +13,8 @@ import { reducers } from './reducers/index';
 import { ScrollToTop } from './scripts/autoScrollTop';
 import App from './components/App';
 
-const composeEnhancers = composeWithDevTools({});
+const composeEnhancers = composeWithDevTools({}) || compose;
+
 const store = createStore(
   reducers,
   {

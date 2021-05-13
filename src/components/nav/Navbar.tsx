@@ -39,7 +39,7 @@ export const Navbar = (): JSX.Element => {
             <Fragment>
               <Menu.Item as={NavLink} to={`/wishlist/${currentUser?.id}`}>
                 <Icon name='heart' size='large' />
-                FAVORITOS
+                {!isMobileOnly ? 'FAVORITOS' : null}
               </Menu.Item>
               <SignedInMenu currentUser={currentUser!} handleSignOut={handleLogOut} />
             </Fragment>
