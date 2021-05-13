@@ -40,9 +40,15 @@ export const PetsAdoptedTableBody: React.FC<Props> = ({ petsData }) => {
             <Table.Cell content={toTitleCase(pet.name)} />
             <Table.Cell content={pet.location} />
             <Table.Cell
-              content={`${pet?.adopteeId?.name} ${pet?.adopteeId?.lastName}/${
-                pet?.adopteeId?.phone || pet?.adopteeId?.email
-              }`}
+              content={
+                pet.adopteeId.name
+                  ? `${pet?.adopteeId?.name} ${pet?.adopteeId?.lastName}/${
+                      pet?.adopteeId?.phone || pet?.adopteeId?.email
+                    }`
+                  : `${pet.adopteeId.displayName}/${
+                      pet?.adopteeId?.phone || pet?.adopteeId?.email
+                    }`
+              }
             />
             <Table.Cell
               content={new Date(pet.adoptionDate!).toLocaleDateString('es-US', options)}
