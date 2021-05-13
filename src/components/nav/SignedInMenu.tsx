@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Dropdown, Image, Menu } from 'semantic-ui-react';
+import { Dropdown, Icon, Image, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AuthPayload } from '../../actions/auth';
 import { AdminMenu } from './AdminMenu';
@@ -17,7 +17,7 @@ export const SignedInMenu: React.FC<Props> = ({
   return (
     <Fragment>
       <Menu.Item position='right'>
-        <Image avatar spaced='right' src={'/assets/user.png'} />
+        <Icon name='user' style={{ color: 'white' }} size='big' />
         <Dropdown
           pointing='top left'
           text={!isMobileOnly ? currentUser?.displayName : undefined}

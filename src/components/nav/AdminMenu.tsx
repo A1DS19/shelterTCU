@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown, Image, Menu } from 'semantic-ui-react';
+import { Dropdown, Icon, Image, Menu } from 'semantic-ui-react';
 import { isMobileOnly } from 'react-device-detect';
 
 export const AdminMenu = () => {
   return (
     <Menu.Item>
-      <Image avatar spaced='right' src='/assets/admin.png' />
+      <Icon name='setting' style={{ color: 'white' }} size='big' />
       <Dropdown pointing='top left' text='Admin'>
         <Dropdown.Menu>
           <Dropdown.Item as={Link} to='/admin/pets' icon='paw' text='Mascotas' />

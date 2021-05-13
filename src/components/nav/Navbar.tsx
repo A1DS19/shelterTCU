@@ -34,7 +34,11 @@ export const Navbar = (): JSX.Element => {
           </Menu.Item>
 
           <Menu.Item as={NavLink} to='/adoptions'>
-            {!isMobileOnly ? 'MASCOTAS' : <img src='/assets/pawprint.png' alt='logo' />}
+            {!isMobileOnly ? (
+              'MASCOTAS'
+            ) : (
+              <Icon name='paw' style={{ color: 'white' }} size='big' />
+            )}
           </Menu.Item>
 
           {authenticated ? (
