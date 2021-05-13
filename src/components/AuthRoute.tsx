@@ -8,6 +8,7 @@ interface Props {
   prevLocation?: any;
   path?: any;
   rest?: any;
+  exact?: any;
 }
 
 export const AuthRoute = ({ Component, prevLocation, ...rest }: Props) => {

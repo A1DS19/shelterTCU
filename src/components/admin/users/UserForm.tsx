@@ -61,6 +61,9 @@ export const UserForm: React.FC<Props> = ({ match, location }) => {
     displayName: selectedUser?.displayName!,
     photoURL: selectedUser?.photoURL!,
     createdAt: selectedUser?.createdAt!,
+    direction: selectedUser?.direction!,
+    cedula: selectedUser?.cedula!,
+    phone: selectedUser?.phone!,
   };
 
   const handleSubmit = (values: AuthPayload, helpers: FormikHelpers<AuthPayload>) => {
@@ -115,9 +118,9 @@ export const UserForm: React.FC<Props> = ({ match, location }) => {
           }}
         >
           {(props: FormikProps<AuthPayload>) => (
-            <Grid>
-              <Grid.Column width={8}>
-                <Form className='ui form'>
+            <Form className='ui form'>
+              <Grid>
+                <Grid.Column width={8}>
                   <TextInput
                     label='Email'
                     name='email'
@@ -178,19 +181,49 @@ export const UserForm: React.FC<Props> = ({ match, location }) => {
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
                   />
+                </Grid.Column>
 
-                  <Button
-                    loading={props.isSubmitting}
-                    disabled={!props.isValid || !props.dirty || props.isSubmitting}
-                    type='submit'
-                    fluid
-                    size='large'
-                    color='orange'
-                    content={selectedUser ? 'ACTUALIZAR' : 'CREAR'}
+                <Grid.Column width={8}>
+                  <TextInput
+                    label='Direccion de usuario'
+                    name='direction'
+                    placeholder='Direccion'
+                    value={props.values.direction}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
                   />
-                </Form>
-              </Grid.Column>
-            </Grid>
+                  <TextInput
+                    label='Cedula de usuario'
+                    name='cedula'
+                    placeholder='Cedula'
+                    value={props.values.cedula}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                  />
+                  <TextInput
+                    label='Telefono de usuario'
+                    name='phone'
+                    placeholder='Telefono'
+                    value={props.values.phone}
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                  />
+                </Grid.Column>
+              </Grid>
+              <Button
+                loading={props.isSubmitting}
+                disabled={!props.isValid || !props.dirty || props.isSubmitting}
+                type='submit'
+                fluid
+                size='large'
+                color='orange'
+                style={{
+                  maxWidth: '31rem',
+                  marginTop: '1rem',
+                }}
+                content={selectedUser ? 'ACTUALIZAR' : 'CREAR'}
+              />
+            </Form>
           )}
         </Formik>
       </Segment>

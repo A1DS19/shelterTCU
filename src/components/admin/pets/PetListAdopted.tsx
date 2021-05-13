@@ -1,15 +1,21 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { Button, Input, Table, Menu, Icon, Pagination, Tab } from 'semantic-ui-react';
-import { fetchPetByName, fetchPets, updatePageNumber } from '../../../actions/pets/pets';
+import { useHistory } from 'react-router-dom';
+import { Input, Button, Table, Pagination } from 'semantic-ui-react';
+import {
+  fetchAdoptedPets,
+  fetchPetByName,
+  updatePageNumber,
+} from '../../../actions/pets/pets';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { StoreState } from '../../../reducers';
 import { ErrorComponent } from '../../common/Error';
 import { LoaderComponent } from '../../common/Loader';
-import { PetsTableBody } from './PetsTableBody';
+import { PetsAdoptedTableBody } from './PetsAdoptedTableBody';
 
-export const PetList = () => {
+interface PetListAdoptedProps {}
+
+export const PetListAdopted: React.FC<PetListAdoptedProps> = ({}) => {
   const dispatch = useDispatch();
   const { petsData, page, totalPages } = useSelector((state: StoreState) => state.pets);
   const { loading, error } = useSelector((state: StoreState) => state.loading);
@@ -17,7 +23,7 @@ export const PetList = () => {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchPets(page));
+    dispatch(fetchAdoptedPets(page));
   }, [dispatch, page]);
 
   if (error) {
@@ -54,16 +60,15 @@ export const PetList = () => {
           <Table.Row>
             <Table.HeaderCell>NOMBRE</Table.HeaderCell>
             <Table.HeaderCell>UBICACION</Table.HeaderCell>
-            <Table.HeaderCell>RAZA</Table.HeaderCell>
-            <Table.HeaderCell>ADOPTADO</Table.HeaderCell>
-            <Table.HeaderCell>FOTOS</Table.HeaderCell>
-            <Table.HeaderCell>DESCRIPCCION</Table.HeaderCell>
+            <Table.HeaderCell>ADOPTANTE</Table.HeaderCell>
+            <Table.HeaderCell>FECHA ADOPCION</Table.HeaderCell>
+            <Table.HeaderCell>FECHA SEGUIMIENTO</Table.HeaderCell>
             <Table.HeaderCell>ACCION</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          <PetsTableBody petsData={petsData} />
+          <PetsAdoptedTableBody petsData={petsData} />
         </Table.Body>
 
         <Table.Footer>
@@ -76,13 +81,6 @@ export const PetList = () => {
           />
         </Table.Footer>
       </Table>
-
-      <Button
-        onClick={() => history.push(`/admin/pets/create`)}
-        color='orange'
-        icon='plus'
-        content='AGREGAR MASCOTA'
-      />
     </Fragment>
   );
 };

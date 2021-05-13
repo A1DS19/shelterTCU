@@ -14,6 +14,7 @@ export interface RegisterFormValues {
   email: string;
   password: string;
   displayName: string;
+  cedula: string;
   authError?: string;
 }
 
@@ -23,6 +24,7 @@ const RegisterForm = () => {
     email: '',
     displayName: '',
     password: '',
+    cedula: '',
   };
 
   return (
@@ -60,6 +62,14 @@ const RegisterForm = () => {
               name='displayName'
               placeholder='NOMBRE USUARIO'
               value={props.values.displayName}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+
+            <TextInput
+              name='cedula'
+              placeholder='CEDULA'
+              value={props.values.cedula}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />

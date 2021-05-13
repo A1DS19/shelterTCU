@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Button, Grid, Header, Loader } from 'semantic-ui-react';
 import { addPetsPictures } from '../../../actions/pets/pets';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
+import { toTitleCase } from '../../../util/upperCase';
 import { PhotosDropzone } from '../../common/photos/PhotosDropzone';
 
 interface Props {
@@ -57,7 +58,7 @@ export const PetPhotos: React.FC<Props> = ({ selectedPet }) => {
               content={
                 selectedPet?.photosUrl?.length! < 2
                   ? selectedPet
-                    ? `Agregar mas Fotos a ${selectedPet.name}`
+                    ? `Agregar mas Fotos a ${toTitleCase(selectedPet.name)}`
                     : 'Agregar Fotos'
                   : `${selectedPet?.name} ya tiene 3 fotos ya no se puede subir mas.`
               }

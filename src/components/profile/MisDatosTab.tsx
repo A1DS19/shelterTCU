@@ -19,6 +19,8 @@ interface FormValues {
   lastName?: string;
   displayName?: string;
   error?: string;
+  phone?: string;
+  direction?: string;
 }
 
 export const MisDatosTab: React.FC<Props> = ({ loading, currentUser }) => {
@@ -28,6 +30,8 @@ export const MisDatosTab: React.FC<Props> = ({ loading, currentUser }) => {
     name: currentUser?.name || '',
     lastName: currentUser?.lastName || '',
     displayName: currentUser?.displayName || '',
+    phone: currentUser?.phone || '',
+    direction: currentUser?.direction || '',
   };
 
   return (
@@ -75,6 +79,24 @@ export const MisDatosTab: React.FC<Props> = ({ loading, currentUser }) => {
                   label='Apellido'
                   placeholder='Apellido'
                   value={props.values.lastName}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                />
+
+                <TextInput
+                  label='Telefono de usuario'
+                  name='phone'
+                  placeholder='Telefono'
+                  value={props.values.phone}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                />
+
+                <TextInput
+                  label='Direccion de usuario'
+                  name='direction'
+                  placeholder='Direccion'
+                  value={props.values.direction}
                   onChange={props.handleChange}
                   onBlur={props.handleBlur}
                 />

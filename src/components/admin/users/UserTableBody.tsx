@@ -29,11 +29,12 @@ export const UsersTableBody: React.FC<Props> = ({ usersData }) => {
     <Fragment>
       {usersData.map((user: AuthPayload) => (
         <Table.Row key={user._id}>
-          <Table.Cell content={user._id.slice(0, 5) + '...'} />
+          <Table.Cell content={user?.cedula} />
           <Table.Cell content={user.email} />
-          <Table.Cell content={user.password.slice(0, 7) + '...'} />
-          <Table.Cell content={user.name} />
-          <Table.Cell content={user.lastName} />
+          <Table.Cell content={user?.phone || 'No tiene'} />
+          <Table.Cell content={user?.direction || 'No tiene'} />
+          <Table.Cell content={`${user.name} ${user.lastName}`} />
+
           <Table.Cell
             content={
               JSON.parse(user?.isAdmin!) ? (
@@ -43,27 +44,19 @@ export const UsersTableBody: React.FC<Props> = ({ usersData }) => {
               )
             }
           />
-          <Table.Cell content={user.displayName?.slice(0, 5) + '...'} />
-          <Table.Cell content={format(new Date(user.createdAt!), 'dd/mm/yyyy')} />
-          <Table.Cell
-            content={
-              user?.photoURL ? (
-                user.photoURL! ? (
-                  <Icon color='green' name='check' />
-                ) : (
-                  <Icon color='red' name='x' />
-                )
-              ) : (
-                <Icon color='red' name='x' />
-              )
-            }
-          />
-          <Table.Cell>
+
+          <Table.Cell collapsing>
             <Icon
               link
               onClick={() => history.push(`/admin/users/${user._id}`)}
               size='large'
               name='edit'
+            />
+            <Icon
+              link
+              name='heart'
+              size='large'
+              onClick={() => history.push(`/wishlist/${user._id}`)}
             />
             <Icon
               link

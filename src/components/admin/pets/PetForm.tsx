@@ -18,7 +18,9 @@ import { TextArea } from '../../common/TextArea';
 import { TextInput } from '../../common/TextInput';
 import { PetPhotos } from './PetPhotos';
 import { toast } from 'react-toastify';
+import { DateInput } from '../../common/DateInput';
 import { createPetValidationSchema } from '../../common/validationSchemas';
+import { toTitleCase } from '../../../util/upperCase';
 
 export interface MatchParams {
   id: string;
@@ -55,9 +57,14 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
     name: selectedPet?.name!,
     location: selectedPet?.location!,
     breed: selectedPet?.breed!,
-    adopted: selectedPet?.adopted!,
+    adopted: selectedPet?.adopted! || 'false',
     photosUrl: selectedPet?.photosUrl!,
     description: selectedPet?.description!,
+    size: selectedPet?.size,
+    adoptionDate: selectedPet?.adoptionDate,
+    adoptionPlace: selectedPet?.adoptionPlace,
+    adopteeId: selectedPet?.adopteeId,
+    employee: selectedPet?.employee,
   };
 
   const handleSubmit = (values: PetsData, helpers: FormikHelpers<PetsData>) => {
@@ -92,7 +99,9 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
       <Segment clearing>
         <Header
           content={
-            selectedPet ? `Modificar Informacion de ${selectedPet.name}` : 'Crear Mascota'
+            selectedPet
+              ? `Modificar Informacion de ${toTitleCase(selectedPet.name)}`
+              : 'Crear Mascota'
           }
         />
         <Formik
@@ -103,75 +112,133 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
             handleSubmit(values, helpers);
           }}
         >
-          {(props: FormikProps<PetsData>) => (
-            <Grid>
-              <Grid.Column width={8}>
-                <Form className='ui form'>
-                  <TextInput
-                    label='Nombre'
-                    name='name'
-                    placeholder='Nombre'
-                    value={props.values.name}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                  />
+          {(props: FormikProps<PetsData>) => {
+            return (
+              <Grid>
+                <Grid.Column width={8}>
+                  <Form className='ui form'>
+                    <Grid>
+                      <Grid.Column width={8}>
+                        <TextInput
+                          label='Nombre'
+                          name='name'
+                          placeholder='Nombre'
+                          value={toTitleCase(props.values.name || '')}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
 
-                  <TextInput
-                    label='Ubicacion'
-                    name='location'
-                    placeholder='Ubicacion'
-                    value={props.values.location}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                  />
+                        <TextInput
+                          label='Ubicacion'
+                          name='location'
+                          placeholder='Ubicacion'
+                          value={props.values.location}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
 
-                  <TextInput
-                    label='Raza'
-                    name='breed'
-                    placeholder='Raza'
-                    value={props.values.breed}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                  />
+                        <TextInput
+                          label='Raza'
+                          name='breed'
+                          placeholder='Raza'
+                          value={props.values.breed}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                        />
 
-                  <SelectInput
-                    label='Adoptado'
-                    name='adopted'
-                    placeholder='Esta Adoptado'
-                    value={props.values.adopted}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    options={[
-                      { key: 0, value: 'true', text: 'Si' },
-                      { key: 1, value: 'false', text: 'No' },
-                    ]}
-                  />
+                        <SelectInput
+                          label='Adoptado'
+                          name='adopted'
+                          placeholder='Esta Adoptado'
+                          value={props.values.adopted}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          options={[
+                            { key: 0, value: 'true', text: 'Si' },
+                            { key: 1, value: 'false', text: 'No' },
+                          ]}
+                        />
+                      </Grid.Column>
+                      <Grid.Column width={8}>
+                        <SelectInput
+                          label='Tamaño'
+                          name='size'
+                          placeholder='Tamaño'
+                          value={props.values.size}
+                          onChange={props.handleChange}
+                          onBlur={props.handleBlur}
+                          options={[
+                            { key: 0, value: 'pequeno', text: 'Pequeño' },
+                            { key: 1, value: 'grande', text: 'Grande' },
+                          ]}
+                        />
 
-                  <TextArea
-                    label='Descripccion'
-                    name='description'
-                    placeholder='Descripccion'
-                    value={props.values.description}
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                  />
+                        {props.values.adopted !== 'false' && (
+                          <React.Fragment>
+                            <DateInput
+                              label='Fecha de adopcion'
+                              name='adoptionDate'
+                              placeholder='Fecha de adopcion'
+                              value={props.values.adoptionDate}
+                              onChange={props.handleChange}
+                              onBlur={props.handleBlur}
+                            />
 
-                  <Button
-                    loading={props.isSubmitting}
-                    disabled={!props.isValid || !props.dirty || props.isSubmitting}
-                    type='submit'
-                    fluid
-                    size='large'
-                    color='orange'
-                    content={selectedPet ? 'ACTUALIZAR' : 'CREAR'}
-                  />
-                </Form>
-              </Grid.Column>
-              <Grid.Column width={8}>
-                {selectedPet && <PetPhotos selectedPet={selectedPet} />}
-              </Grid.Column>
-            </Grid>
-          )}
+                            <TextInput
+                              label='Lugar de adopcion'
+                              name='adoptionPlace'
+                              placeholder='Lugar de adopcion'
+                              value={props.values.adoptionPlace}
+                              onChange={props.handleChange}
+                              onBlur={props.handleBlur}
+                            />
+
+                            <TextInput
+                              label='Cedula de Adoptante'
+                              name='adopteeId'
+                              placeholder='Cedula'
+                              value={props.values.adopteeId}
+                              onChange={props.handleChange}
+                              onBlur={props.handleBlur}
+                            />
+                          </React.Fragment>
+                        )}
+                      </Grid.Column>
+                    </Grid>
+                    <TextInput
+                      label='Encargado de adopción'
+                      name='employee'
+                      placeholder='Encargado de adopción'
+                      value={props.values.employee}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+                    <TextArea
+                      label='Descripccion'
+                      name='description'
+                      placeholder='Descripccion'
+                      value={props.values.description}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                    />
+
+                    <Button
+                      loading={props.isSubmitting}
+                      disabled={!props.isValid || !props.dirty || props.isSubmitting}
+                      type='submit'
+                      fluid
+                      size='large'
+                      color='orange'
+                      content={selectedPet ? 'ACTUALIZAR' : 'CREAR'}
+                    />
+                  </Form>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  {selectedPet && <PetPhotos selectedPet={selectedPet} />}
+                </Grid.Column>
+              </Grid>
+            );
+          }}
         </Formik>
       </Segment>
     </Fragment>

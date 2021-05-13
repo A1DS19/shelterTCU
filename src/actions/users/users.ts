@@ -78,12 +78,34 @@ export const fetchSelectedUser = (userId: string | null) => {
   };
 };
 
-export const fetchUsers = () => {
+export const fetchUsers = (page: number) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get('/admin/users');
-      dispatch<FetchUsers>({ type: types.FETCH_USERS_DATA, payload: data });
+      const { data } = await api.get(`/admin/users?page=${page}`);
+      dispatch<FetchUsers>({
+        type: types.FETCH_USERS_DATA,
+        payload: { users: data.users, totalPages: data.totalPages },
+      });
+    } catch (error) {
+      toast.error(error.response);
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
+export const fetchUserByCedula = (page: number, cedula: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.post(`/admin/users/get-user-cedula?page=${page}`, {
+        cedula,
+      });
+      dispatch<FetchUsers>({
+        type: types.FETCH_USERS_DATA,
+        payload: { users: data.users, totalPages: data.totalPages },
+      });
     } catch (error) {
       toast.error(error.response);
     } finally {

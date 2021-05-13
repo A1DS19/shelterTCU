@@ -11,6 +11,10 @@ import {
   WhatsappShareButton,
   TelegramShareButton,
 } from 'react-share';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite } from '../../../actions/auth';
+import { StoreState } from '../../../reducers';
+import { toTitleCase } from '../../../util/upperCase';
 interface Props {
   selectedPet: PetsData | undefined;
   authenticated: boolean;
@@ -20,6 +24,9 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({
   selectedPet,
   authenticated,
 }) => {
+  const { currentUser } = useSelector((state: StoreState) => state.auth);
+
+  const dispatch = useDispatch();
   const renderSocialShare = () => (
     <Fragment>
       <Header
@@ -50,37 +57,70 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({
   );
 
   return (
-    <Segment style={isMobileOnly ? { marginTop: '20px' } : {}} textAlign='center'>
-      <Header style={{ marginBottom: '5px' }} as='h3'>
-        Preguntar por {selectedPet?.name}
-      </Header>
+    <Fragment>
+      <Segment style={isMobileOnly ? { marginTop: '20px' } : {}} textAlign='center'>
+        <Header style={{ marginBottom: '5px' }} as='h3'>
+          Preguntar por {toTitleCase(selectedPet?.name || '')}
+        </Header>
 
-      <div style={{ marginBottom: '10px' }}>
-        <Button
-          circular
-          color='green'
-          icon='whatsapp'
-          as='a'
-          href={`https://wa.me/50688152514?text=${window.location.href}%20Hola,%20me%20podrian%20brindar%20informacion%20acerca%20de%20${selectedPet?.name},%20gracias.`}
-          target='_blank'
-        />
-        <Button
-          circular
-          icon='mail'
-          as={Link}
-          to='contact-form'
-          spy={true}
-          smooth={true}
-        />
-      </div>
+        <div style={{ marginBottom: '10px' }}>
+          <Button
+            circular
+            color='green'
+            icon='whatsapp'
+            as='a'
+            href={`https://wa.me/50688152514?text=${window.location.href}%20Hola,%20me%20podrian%20brindar%20informacion%20acerca%20de%20${selectedPet?.name},%20gracias.`}
+            target='_blank'
+          />
+          <Button
+            circular
+            icon='mail'
+            as='a'
+            href='mailto:info@territoriodezaguates.com'
+          />
+        </div>
 
-      {renderSocialShare()}
+        {renderSocialShare()}
 
-      {authenticated && (
-        <Button fluid style={{ marginTop: '10px' }} basic size='medium' color='orange'>
-          <Icon name='heart outline' /> AGREGAR A FAVORITOS
-        </Button>
-      )}
-    </Segment>
+        {authenticated && (
+          <Button
+            onClick={() => {
+              dispatch(
+                addFavorite(
+                  currentUser?.id?.toString() as string,
+                  selectedPet?.id?.toString() as string,
+                  currentUser?.wishlist?.find(
+                    (pet) => pet === selectedPet?.id?.toString()
+                  )
+                    ? true
+                    : false
+                )
+              );
+            }}
+            fluid
+            style={{ marginTop: '10px' }}
+            basic
+            size='medium'
+            color='orange'
+          >
+            {currentUser?.wishlist?.find((pet) => pet === selectedPet?.id?.toString()) ? (
+              <div>
+                <Icon name='heart' /> ELIMINAR DE FAVORITOS
+              </div>
+            ) : (
+              <div>
+                <Icon name='heart outline' /> AGREGAR A FAVORITOS
+              </div>
+            )}
+          </Button>
+        )}
+      </Segment>
+      <Segment color='red'>
+        <Header>
+          La mascota en adopcion va en periodo de prueba, de no adaptarse a la familia la
+          mascota debe ser devuelta.
+        </Header>
+      </Segment>
+    </Fragment>
   );
 };

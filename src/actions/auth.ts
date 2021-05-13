@@ -4,6 +4,7 @@ import { types } from './types';
 import { api } from '../config/axios';
 import { toast } from 'react-toastify';
 import { closeModal } from './modals';
+import { FecthUserWishlist } from './pets/petsInterfaces';
 
 export interface AuthPayload {
   id?: number;
@@ -16,6 +17,10 @@ export interface AuthPayload {
   displayName?: string;
   createdAt?: Date;
   photoURL?: string;
+  wishlist?: string[];
+  direction?: string;
+  cedula?: string;
+  phone?: string;
 }
 
 export interface SignInAction {
@@ -37,12 +42,19 @@ export interface UpdateCurrentUserAction {
   payload: AuthPayload;
 }
 
+export interface DeleteItemWishlist {
+  type: types.REMOVE_ITEM_USER_WISHLIST;
+  payload: string | null;
+}
+
 export const signInUser = (user: AuthPayload) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
       const { data } = await api.post('/auth/login', user);
       dispatch<SignInAction>({ type: types.SIGNED_IN, payload: data });
+      console.log(data);
+
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.id);
       dispatch(closeModal());
@@ -85,6 +97,43 @@ export const fetchCurrentUser = (userId: string | null) => {
   };
 };
 
+export const addFavorite = (userId: string | null, petId: string, exists: boolean) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.put(
+        `/auth/user/add-favorite/${userId}/${petId}/${exists}`
+      );
+      dispatch<FetchCurrentUserAction>({ type: types.FETCH_CURRENT_USER, payload: data });
+
+      if (exists) {
+        dispatch<DeleteItemWishlist>({
+          type: types.REMOVE_ITEM_USER_WISHLIST,
+          payload: petId,
+        });
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
+export const getFavorite = (userId: string | null) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.get(`/auth/user/get-favorite/${userId}`);
+      dispatch<FecthUserWishlist>({ type: types.FETCH_USER_WISHLIST, payload: data });
+    } catch (error) {
+      throw error;
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
 export const updateCurrentUser = (
   userId: number | undefined,
   user: Partial<AuthPayload>
@@ -108,8 +157,7 @@ export const updateCurrentUser = (
 };
 
 export const signOutUser = (): SignOutAction => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userId');
+  localStorage.clear();
   return { type: types.SIGNED_OUT };
 };
 

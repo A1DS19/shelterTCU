@@ -21,6 +21,8 @@ export enum types {
   DELETE_PET,
   UPDATE_PET,
   UPDATE_PAGE_NUMBER,
+  FETCH_USER_WISHLIST,
+  REMOVE_ITEM_USER_WISHLIST,
   //loading
   ASYNC_ACTION_START,
   ASYNC_ACTION_FINISH,
@@ -59,7 +61,9 @@ export type UsersAction =
   | users.ClearSelectedUser
   | users.CreateUser
   | users.UpdateUser
-  | users.DeleteUser;
+  | users.DeleteUser
+  | pets.FecthUserWishlist
+  | auth.DeleteItemWishlist;
 
 export type LoadingAction =
   | loading.AsyncActionError

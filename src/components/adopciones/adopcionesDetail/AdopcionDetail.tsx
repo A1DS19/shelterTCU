@@ -22,7 +22,7 @@ interface Props extends RouteComponentProps<MatchParams> {}
 export const AdopcionDetail = ({ match }: Props) => {
   const petId = match.params.id;
   const { petsData, selectedPet } = useSelector((state: StoreState) => state.pets);
-  const { authenticated } = useSelector((state: StoreState) => state.auth);
+  const { authenticated, currentUser } = useSelector((state: StoreState) => state.auth);
   const { loading, error } = useSelector((state: StoreState) => state.loading);
   const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ export const AdopcionDetail = ({ match }: Props) => {
     return <LoaderComponent />;
   }
 
-  console.log(isMobileOnly);
+  console.log(currentUser);
 
   return (
     <Fragment>
@@ -75,14 +75,14 @@ export const AdopcionDetail = ({ match }: Props) => {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row id='contact-form'>
+        {/* <Grid.Row id='contact-form'>
           <Grid.Column mobile={16} tablet={16} computer={16}>
             <AdopcionDetailContact
               authenticated={authenticated}
               selectedPet={selectedPet}
             />
           </Grid.Column>
-        </Grid.Row>
+        </Grid.Row> */}
 
         <Grid.Row>
           <Grid.Column mobile={16} tablet={16} computer={16}>

@@ -5,8 +5,11 @@ export interface ServerResponse<T> {
 }
 
 export const api = axios.create({
-  baseURL: 'https://server-tcu-2021.herokuapp.com',
+  baseURL:
+    process.env.NODE_ENV === 'production'
+      ? 'https://server-tcu-2021.herokuapp.com'
+      : 'http://localhost:5000',
   headers: {
-    Authorization: localStorage.getItem('token'),
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   },
 });

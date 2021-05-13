@@ -3,7 +3,7 @@ import { AuthPayload } from '../auth';
 
 export interface FetchUsers {
   type: types.FETCH_USERS_DATA;
-  payload: AuthPayload[];
+  payload: { users: AuthPayload[]; totalPages: number };
 }
 
 export interface FetchSelectedUser {

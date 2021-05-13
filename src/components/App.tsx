@@ -9,13 +9,14 @@ import { AdopcionDashboard } from './adopciones/adopcionesDashboard/AdopcionDash
 import { AdopcionDetail } from './adopciones/adopcionesDetail/AdopcionDetail';
 import { ProfilePage } from './profile/ProfilePage';
 import { Footer } from './Footer';
-import { PetList } from './admin/pets/PetList';
+import { PetIndex } from './admin/pets/PetIndex';
 import { PetForm } from './admin/pets/PetForm';
 import { UserList } from './admin/users/UserList';
 import { UserForm } from './admin/users/UserForm';
 import { NotFound404 } from './NotFound404';
 import { AuthRoute } from './AuthRoute';
 import { AdminRoute } from './AdminRoute';
+import { Wishlist } from './profile/Wishlist';
 
 function App() {
   return (
@@ -37,7 +38,8 @@ function App() {
           <Route path='/adoptions' component={AdopcionDashboard} />
           <Route path='/adoption/:id' component={AdopcionDetail} />
           <AuthRoute path='/profile/:id' Component={ProfilePage} />
-          <AdminRoute exact path='/admin/pets' Component={PetList} />
+          <AuthRoute path='/wishlist/:userId' Component={Wishlist} />
+          <AdminRoute exact path='/admin/pets' Component={PetIndex} />
           <AdminRoute exact path='/admin/users' Component={UserList} />
           <AdminRoute
             path={['/admin/pets/create', '/admin/pets/:id']}

@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Input, Table } from 'semantic-ui-react';
+import { Button, Input, Pagination, Table } from 'semantic-ui-react';
 import { AuthPayload } from '../../../actions/auth';
-import { fetchUsers } from '../../../actions/users/users';
+import { updatePageNumber } from '../../../actions/pets/pets';
+import { fetchUserByCedula, fetchUsers } from '../../../actions/users/users';
 import { StoreState } from '../../../reducers';
 import { ErrorComponent } from '../../common/Error';
 import { LoaderComponent } from '../../common/Loader';
@@ -11,14 +12,14 @@ import { UsersTableBody } from './UserTableBody';
 
 export const UserList = () => {
   const dispatch = useDispatch();
-  const { usersData } = useSelector((state: StoreState) => state.users);
+  const { usersData, page, totalPages } = useSelector((state: StoreState) => state.users);
   const { loading, error } = useSelector((state: StoreState) => state.loading);
   const [filter, setFilter] = useState('');
   const history = useHistory();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    dispatch(fetchUsers(page));
+  }, [dispatch, page]);
 
   if (error) {
     return <ErrorComponent />;
@@ -28,18 +29,6 @@ export const UserList = () => {
     return <LoaderComponent />;
   }
 
-  const buscarUsuario = () => {
-    let user = usersData.filter(
-      (user: AuthPayload) => user?.displayName!.toLowerCase() === filter.toLowerCase()
-    );
-
-    if (!user || user.length === 0) {
-      return usersData;
-    }
-
-    return user;
-  };
-
   return (
     <Fragment>
       <Input
@@ -47,19 +36,17 @@ export const UserList = () => {
         placeholder='Buscar Usuario'
         onChange={(e) => setFilter(e.target.value)}
       />
+      <Button onClick={() => dispatch(fetchUserByCedula(page, filter))}>BUSCAR</Button>
 
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>ID</Table.HeaderCell>
+            <Table.HeaderCell>CEDULA</Table.HeaderCell>
             <Table.HeaderCell>EMAIL</Table.HeaderCell>
-            <Table.HeaderCell>CONTRASENA</Table.HeaderCell>
+            <Table.HeaderCell>TELEFONO</Table.HeaderCell>
+            <Table.HeaderCell>DIRECCIÓN</Table.HeaderCell>
             <Table.HeaderCell>NOMBRE</Table.HeaderCell>
-            <Table.HeaderCell>APELLIDO</Table.HeaderCell>
             <Table.HeaderCell>ADMIN</Table.HeaderCell>
-            <Table.HeaderCell>USUARIO</Table.HeaderCell>
-            <Table.HeaderCell>CREADO</Table.HeaderCell>
-            <Table.HeaderCell>FOTO</Table.HeaderCell>
             <Table.HeaderCell>ACCION</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -67,6 +54,16 @@ export const UserList = () => {
         <Table.Body>
           <UsersTableBody usersData={usersData} />
         </Table.Body>
+
+        <Table.Footer>
+          <Pagination
+            activePage={page + 1}
+            totalPages={totalPages}
+            onPageChange={(event, data) => {
+              dispatch(updatePageNumber((data.activePage as number) - 1));
+            }}
+          />
+        </Table.Footer>
       </Table>
 
       <Button

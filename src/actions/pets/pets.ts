@@ -57,6 +57,42 @@ export const fetchPets = (page: number, filtro?: 'disponible' | 'adoptado') => {
   };
 };
 
+export const fetchAdoptedPets = (page: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.get(`/adoptions/adopted-pets?page=${page}`);
+
+      return dispatch<FetchPets>({
+        type: types.FETCH_PETS_DATA,
+        payload: { pets: data.pets, totalPages: data.totalPages },
+      });
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
+export const fetchPetByName = (page: number, name: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.post(`/adoptions/pet/get-by-name`, { name: name });
+
+      return dispatch<FetchPets>({
+        type: types.FETCH_PETS_DATA,
+        payload: { pets: data.pets, totalPages: page },
+      });
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
 export const fetchSelectedPet = (pet: string) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -64,7 +100,7 @@ export const fetchSelectedPet = (pet: string) => {
       const { data } = await api.get(`/adoptions/pet/${pet}`);
       dispatch<FetchSelectedPet>({ type: types.FETCH_SELECTED_PET, payload: data });
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -95,6 +131,21 @@ export const updatePet = (petId: string, pet: PetsData, cb: () => void) => {
       dispatch<UpdatePet>({ type: types.UPDATE_PET, payload: data });
       toast.success(data.msg);
       cb();
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
+export const updateFollowUpDate = (petId: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.put(`/adoptions/pet/update-followUpDate/${petId}`);
+      dispatch<UpdatePet>({ type: types.UPDATE_PET, payload: data });
+      toast.success(data.msg);
     } catch (error) {
       toast.error(error.response.data.msg);
     } finally {

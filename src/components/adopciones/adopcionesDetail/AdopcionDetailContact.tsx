@@ -40,8 +40,7 @@ export const AdopcionDetailContact: React.FC<Props> = ({
           </Item>
         </Item.Group>
       </Segment>
-      {/* <AdopcionDetailComments authenticated={authenticated} selectedPet={selectedPet} /> */}
-      <AdopcionDetailMessage selectedPet={selectedPet} />
+      {/* <AdopcionDetailMessage selectedPet={selectedPet} /> */}
     </Fragment>
   );
 };

@@ -2,14 +2,15 @@ import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Confirm, Icon, Table } from 'semantic-ui-react';
-import { deletePet } from '../../../actions/pets/pets';
+import { deletePet, updateFollowUpDate } from '../../../actions/pets/pets';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { toTitleCase } from '../../../util/upperCase';
+import { format } from 'date-fns';
 interface Props {
   petsData: PetsData[];
 }
 
-export const PetsTableBody: React.FC<Props> = ({ petsData }) => {
+export const PetsAdoptedTableBody: React.FC<Props> = ({ petsData }) => {
   const [openConfirm, setConfirm] = useState(false);
   const [petToDelete, setPetToDelete] = useState({ id: '', name: '' });
   const history = useHistory();
@@ -24,6 +25,13 @@ export const PetsTableBody: React.FC<Props> = ({ petsData }) => {
     dispatch(deletePet(id));
   };
 
+  const options: any = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
   return (
     <Fragment>
       {petsData.map((pet: PetsData) => (
@@ -31,36 +39,23 @@ export const PetsTableBody: React.FC<Props> = ({ petsData }) => {
           <Table.Row key={pet._id}>
             <Table.Cell content={toTitleCase(pet.name)} />
             <Table.Cell content={pet.location} />
-            <Table.Cell content={pet.breed} />
             <Table.Cell
-              content={
-                JSON.parse(pet.adopted) ? (
-                  <Icon color='green' name='check' />
-                ) : (
-                  <Icon color='red' name='x' />
-                )
-              }
+              content={`${pet?.adopteeId?.name} ${pet?.adopteeId?.lastName}/${
+                pet?.adopteeId?.phone || pet?.adopteeId?.email
+              }`}
             />
             <Table.Cell
-              content={
-                pet?.photosUrl ? (
-                  pet.photosUrl!.length > 0 ? (
-                    <Icon color='green' name='check' />
-                  ) : (
-                    <Icon color='red' name='x' />
-                  )
-                ) : (
-                  <Icon color='red' name='x' />
-                )
-              }
+              content={new Date(pet.adoptionDate!).toLocaleDateString('es-US', options)}
             />
-            <Table.Cell content={pet?.description.substring(0, 20) + '...'} />
+            <Table.Cell
+              content={new Date(pet.followUpDate!).toLocaleDateString('es-US', options)}
+            />
             <Table.Cell collapsing>
               <Icon
                 link
-                onClick={() => history.push(`/admin/pets/${pet._id}`)}
+                onClick={() => dispatch(updateFollowUpDate(pet._id!))}
                 size='large'
-                name='edit'
+                name='calendar check outline'
               />
               <Icon
                 link

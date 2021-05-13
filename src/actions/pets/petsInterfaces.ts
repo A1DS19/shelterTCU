@@ -1,3 +1,4 @@
+import { AuthPayload } from '../auth';
 import { types } from '../types';
 
 export interface PetsData {
@@ -9,6 +10,12 @@ export interface PetsData {
   adopted: string;
   photosUrl?: string[];
   description: string;
+  size?: 'pequeno' | 'grande';
+  adoptionDate?: Date;
+  adoptionPlace?: string;
+  adopteeId?: any;
+  employee?: string;
+  followUpDate?: Date;
 }
 
 export interface UpdatePageNumber {
@@ -51,4 +58,9 @@ export interface UpdatePet {
 export interface DeletePet {
   type: types.DELETE_PET;
   payload: string | null;
+}
+
+export interface FecthUserWishlist {
+  type: types.FETCH_USER_WISHLIST;
+  payload: PetsData[] | undefined;
 }

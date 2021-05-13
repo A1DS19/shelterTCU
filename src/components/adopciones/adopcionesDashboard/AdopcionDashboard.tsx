@@ -25,7 +25,7 @@ export const AdopcionDashboard = (): JSX.Element => {
         </Grid.Column>
       )}
 
-      <Grid.Column mobile={16} computer={10}>
+      <Grid.Column mobile={16} computer={9}>
         {loading && (
           <Fragment>
             <AdopcionLoader />

@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import { Container, Menu } from 'semantic-ui-react';
+import { Container, Icon, Menu } from 'semantic-ui-react';
 import { fetchCurrentUser, signOutUser } from '../../actions/auth';
 import { StoreState } from '../../reducers';
 import { SignedInMenu } from './SignedInMenu';
 import { SignedOutMenu } from './SignedOutMenu';
-import { isMobileOnly } from 'react-device-detect';
+import { isMobileOnly, isMobile, isDesktop } from 'react-device-detect';
 
 export const Navbar = (): JSX.Element => {
   const history = useHistory();
@@ -37,9 +37,10 @@ export const Navbar = (): JSX.Element => {
 
           {authenticated ? (
             <Fragment>
-              {/* <Menu.Item as={NavLink} to='/favorites'>
+              <Menu.Item as={NavLink} to={`/wishlist/${currentUser?.id}`}>
                 <Icon name='heart' size='large' />
-              </Menu.Item> */}
+                FAVORITOS
+              </Menu.Item>
               <SignedInMenu currentUser={currentUser!} handleSignOut={handleLogOut} />
             </Fragment>
           ) : (

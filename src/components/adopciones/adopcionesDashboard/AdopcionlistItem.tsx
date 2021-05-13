@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
+import { toTitleCase } from '../../../util/upperCase';
 
 interface EventListItemProps {
   pet: PetsData;
@@ -34,13 +35,13 @@ export const AdopcionListItem: React.FC<EventListItemProps> = ({ pet }): JSX.Ele
       <Card.Content textAlign='center'>
         <Card.Header>
           {' '}
-          <p style={{ color: 'orange' }}>{pet.name}</p>{' '}
+          <p style={{ color: 'orange' }}>{toTitleCase(pet.name)}</p>{' '}
         </Card.Header>
         <Card.Meta>
           <Icon name='point' /> {pet.location}
         </Card.Meta>
-        <Card.Description style={{ whiteSpace: 'pre-wrap' }}>
-          {pet.description.slice(0, 50) + '...'}
+        <Card.Description style={{ whiteSpace: 'pre' }}>
+          {pet.description.slice(0, 30) + '...'}
         </Card.Description>
       </Card.Content>
     </Card>
