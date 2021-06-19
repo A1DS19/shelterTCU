@@ -13,7 +13,8 @@ import { reducers } from './reducers/index';
 import { ScrollToTop } from './scripts/autoScrollTop';
 import App from './components/App';
 
-const composeEnhancers = composeWithDevTools({}) || compose;
+const composeEnhancers =
+  process.env.NODE_ENV === 'development' ? composeWithDevTools({}) : compose;
 
 const store = createStore(
   reducers,
