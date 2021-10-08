@@ -10,6 +10,6 @@ export const api = axios.create({
       ? 'https://server-tcu-2021.herokuapp.com'
       : 'http://localhost:5000',
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `bearer ${localStorage.getItem('token')}`,
   },
 });
