@@ -59,7 +59,7 @@ export const signInUser = (user: AuthPayload) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.id);
       dispatch(closeModal());
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -76,7 +76,7 @@ export const registerUser = (user: AuthPayload) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('userId', data.id);
       dispatch(closeModal());
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -88,9 +88,13 @@ export const fetchCurrentUser = (userId: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/auth/user/${userId}`);
-      dispatch<FetchCurrentUserAction>({ type: types.FETCH_CURRENT_USER, payload: data });
-    } catch (error) {
+      const { data } = await api.get(`/auth/user`);
+      data &&
+        dispatch<FetchCurrentUserAction>({
+          type: types.FETCH_CURRENT_USER,
+          payload: data,
+        });
+    } catch (error: any) {
       throw error;
     } finally {
       dispatch(asyncActionFinish());
@@ -113,7 +117,7 @@ export const addFavorite = (userId: string | null, petId: string, exists: boolea
           payload: petId,
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       throw error;
     } finally {
       dispatch(asyncActionFinish());
@@ -127,7 +131,7 @@ export const getFavorite = (userId: string | null) => {
       dispatch(asyncActionStart());
       const { data } = await api.get(`/auth/user/get-favorite/${userId}`);
       dispatch<FecthUserWishlist>({ type: types.FETCH_USER_WISHLIST, payload: data });
-    } catch (error) {
+    } catch (error: any) {
       throw error;
     } finally {
       dispatch(asyncActionFinish());
@@ -149,7 +153,7 @@ export const updateCurrentUser = (
         payload: data,
       });
       toast.success('Datos actualizados');
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -168,7 +172,7 @@ export const updateUserPassword = (userId: string | null, password: Object) => {
       dispatch(asyncActionStart());
       const { data } = await api.put(`/auth/user-password/${userId}`, password);
       toast.success(data.msg);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -183,7 +187,7 @@ export const deleteUser = (userId: string | null) => {
       const { data } = await api.delete(`/auth/user/${userId}`);
       toast.success(data.msg);
       signOutUser();
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -208,7 +212,7 @@ export const updateUserPFP = (userId: string | null, image: File[], cb: () => vo
         payload: data,
       });
       cb();
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());

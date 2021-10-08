@@ -21,7 +21,7 @@ export const createUser = (user: AuthPayload, cb: () => void) => {
       dispatch<CreateUser>({ type: types.CREATE_USER, payload: data });
       toast.success(`Usuario ${data.name} ${data.lastName} creado`);
       cb();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -41,7 +41,7 @@ export const updateUserData = (
       dispatch<UpdateUser>({ type: types.UPDATE_USER, payload: data });
       toast.success(data.msg);
       cb();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -56,7 +56,7 @@ export const deleteUser = (userId: string | null) => {
       const { data } = await api.delete(`/admin/user/${userId}`);
       dispatch<DeleteUser>({ type: types.DELETE_USER, payload: userId! });
       toast.success(data.msg);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -70,7 +70,7 @@ export const fetchSelectedUser = (userId: string | null) => {
       dispatch(asyncActionStart());
       const { data } = await api.get(`/admin/user/${userId}`);
       dispatch<FetchSelectedUser>({ type: types.FETCH_SELECTED_USER, payload: data });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response);
     } finally {
       dispatch(asyncActionFinish());
@@ -87,7 +87,7 @@ export const fetchUsers = (page: number) => {
         type: types.FETCH_USERS_DATA,
         payload: { users: data.users, totalPages: data.totalPages },
       });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response);
     } finally {
       dispatch(asyncActionFinish());
@@ -106,7 +106,7 @@ export const fetchUserByCedula = (page: number, cedula: string) => {
         type: types.FETCH_USERS_DATA,
         payload: { users: data.users, totalPages: data.totalPages },
       });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response);
     } finally {
       dispatch(asyncActionFinish());

@@ -49,7 +49,7 @@ export const fetchPets = (page: number, filtro?: 'disponible' | 'adoptado') => {
             payload: { pets: data.pets, totalPages: data.totalPages },
           });
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -67,7 +67,7 @@ export const fetchAdoptedPets = (page: number) => {
         type: types.FETCH_PETS_DATA,
         payload: { pets: data.pets, totalPages: data.totalPages },
       });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -85,7 +85,7 @@ export const fetchPetByName = (page: number, name: string) => {
         type: types.FETCH_PETS_DATA,
         payload: { pets: data.pets, totalPages: page },
       });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -99,7 +99,7 @@ export const fetchSelectedPet = (pet: string) => {
       dispatch(asyncActionStart());
       const { data } = await api.get(`/adoptions/pet/${pet}`);
       dispatch<FetchSelectedPet>({ type: types.FETCH_SELECTED_PET, payload: data });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data);
     } finally {
       dispatch(asyncActionFinish());
@@ -115,7 +115,7 @@ export const createPet = (pet: PetsData, cb: () => void) => {
       dispatch<CreatePet>({ type: types.CREATE_PET, payload: data });
       toast.success(data.msg);
       cb();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -131,7 +131,7 @@ export const updatePet = (petId: string, pet: PetsData, cb: () => void) => {
       dispatch<UpdatePet>({ type: types.UPDATE_PET, payload: data });
       toast.success(data.msg);
       cb();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -146,7 +146,7 @@ export const updateFollowUpDate = (petId: string) => {
       const { data } = await api.put(`/adoptions/pet/update-followUpDate/${petId}`);
       dispatch<UpdatePet>({ type: types.UPDATE_PET, payload: data });
       toast.success(data.msg);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -161,7 +161,7 @@ export const deletePet = (id: string | null) => {
       const { data } = await api.delete(`/adoptions/pet/${id}`);
       dispatch<DeletePet>({ type: types.DELETE_PET, payload: id });
       toast.success(data.msg);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -208,7 +208,7 @@ export const addPetsPictures = (petId: string, images: any[], cb: () => void) =>
       });
       toast.success(data.msg);
       cb();
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
@@ -225,7 +225,7 @@ export const sendEmail = (petId: any, emailData: Object) => {
       dispatch(asyncActionStart());
       const { data } = await api.post(`/adoptions/send`, newEmailData);
       toast.success(data.msg);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.msg);
     } finally {
       dispatch(asyncActionFinish());
