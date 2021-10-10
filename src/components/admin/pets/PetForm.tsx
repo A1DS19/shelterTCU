@@ -68,6 +68,11 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
   };
 
   const handleSubmit = (values: PetsData, helpers: FormikHelpers<PetsData>) => {
+    if (values.adopted === 'false') {
+      values.adoptionPlace = '';
+      values.adopteeId = '';
+      values.employee = '';
+    }
     try {
       selectedPet
         ? dispatch(
@@ -80,7 +85,7 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
               history.push('/admin/pets');
             })
           );
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error);
     } finally {
       helpers.setSubmitting(false);

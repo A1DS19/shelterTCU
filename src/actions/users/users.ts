@@ -13,6 +13,21 @@ import { asyncActionFinish, asyncActionStart } from '../loading/loading';
 import { types } from '../types';
 import { toast } from 'react-toastify';
 
+export const generateNewUserPassword = (userId: string, callback: () => void) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.put(`/admin/user/${userId}/new-password`);
+      callback();
+      toast(data.msg);
+    } catch (err: any) {
+      toast.error(err.response.data.err);
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
 export const createUser = (user: AuthPayload, cb: () => void) => {
   return async (dispatch: Dispatch) => {
     try {

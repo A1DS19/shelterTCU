@@ -60,7 +60,7 @@ export const signInUser = (user: AuthPayload) => {
       localStorage.setItem('userId', data.id);
       dispatch(closeModal());
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.err);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -77,7 +77,7 @@ export const registerUser = (user: AuthPayload) => {
       localStorage.setItem('userId', data.id);
       dispatch(closeModal());
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.err);
     } finally {
       dispatch(asyncActionFinish());
     }
