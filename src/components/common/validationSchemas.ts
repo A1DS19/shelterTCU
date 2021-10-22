@@ -7,18 +7,24 @@ export const loginValidationSchema = Yup.object({
 });
 
 export const registerValidationSchema = Yup.object({
-  email: Yup.string().required('El email es requerido').email(),
+  email: Yup.string()
+    .required('El email es requerido')
+    .email('El email no tiene el formato correcto'),
   displayName: Yup.string().required('El nombre de usuario es requerida'),
   cedula: Yup.string()
-    .min(5, 'La cedula debe tener al menos 5 caracteres')
-    .required('La cedula es requerida'),
+    .required('Debe ingresar su numero de cedula')
+    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
+    .min(9, 'Numero de cedula invalido')
+    .max(9, 'Numero de cedula invalido'),
   password: Yup.string()
     .required('La contrasena es requerida')
     .min(6, 'La contrasena debe tener minimo 6 digitos'),
 });
 
 export const createUserValidationSchema = Yup.object({
-  email: Yup.string().required('El email es requerido').email(),
+  email: Yup.string()
+    .required('El email es requerido')
+    .email('El email no tiene el formato correcto'),
   displayName: Yup.string().required('El nombre de usuario es requerida'),
   password: Yup.string()
     .required('La contrasena es requerida')
@@ -28,17 +34,32 @@ export const createUserValidationSchema = Yup.object({
   isAdmin: Yup.string().required(
     'Determinar si el usuario es administrador es requerido'
   ),
-  cedula: Yup.string().required('La cedula es requerida'),
+  cedula: Yup.string()
+    .required('Debe ingresar su numero de cedula')
+    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
+    .min(9, 'Numero de cedula invalido')
+    .max(9, 'Numero de cedula invalido'),
 });
 
 export const updateUserValidationSchema = Yup.object({
-  email: Yup.string().required('El email es requerido').email(),
+  email: Yup.string()
+    .required('El email es requerido')
+    .email('El email debe tener un formato correcto'),
   displayName: Yup.string().required('El nombre de usuario es requerida'),
-  name: Yup.string().required('El nombre es requerido'),
-  lastName: Yup.string().required('El apellido es requerido'),
+  name: Yup.string(),
+  lastName: Yup.string(),
   isAdmin: Yup.string().required(
     'Determinar si el usuario es administrador es requerido'
   ),
+  cedula: Yup.string()
+    .required('Debe ingresar su numero de cedula')
+    .matches(/^[0-9]+$/, 'Numero de cedula invalido')
+    .min(9, 'Numero de cedula invalido')
+    .max(9, 'Numero de cedula invalido'),
+  phone: Yup.string()
+    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
+    .min(8, 'Numero telefonico invalido')
+    .max(8, 'Numero telefonico invalido'),
 });
 
 export const createPetValidationSchema = Yup.object({
@@ -79,10 +100,13 @@ export const createPetValidationSchema = Yup.object({
 
 export const updatePersonalDataValidationSchema = Yup.object({
   displayName: Yup.string().required('El nombre de usuario es requerida'),
-  name: Yup.string().required('El apellido es requerido'),
-  lastName: Yup.string().required('El apellido es requerido'),
-  phone: Yup.string().required('El telefono es requerido'),
-  direction: Yup.string().required('La direccion es requerida'),
+  name: Yup.string(),
+  lastName: Yup.string(),
+  phone: Yup.string()
+    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
+    .min(8, 'Numero telefonico invalido')
+    .max(8, 'Numero telefonico invalido'),
+  direction: Yup.string(),
 });
 
 export const updatePasswordValidationSchema = Yup.object({

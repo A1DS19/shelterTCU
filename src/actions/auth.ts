@@ -1,4 +1,4 @@
-import { asyncActionStart, asyncActionFinish, asyncActionError } from './loading/loading';
+import { asyncActionStart, asyncActionFinish } from './loading/loading';
 import { Dispatch } from 'redux';
 import { types } from './types';
 import { api } from '../config/axios';
@@ -88,7 +88,7 @@ export const fetchCurrentUser = (userId: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/auth/user`);
+      const { data } = await api.get(`/auth/user/${userId}`);
       data &&
         dispatch<FetchCurrentUserAction>({
           type: types.FETCH_CURRENT_USER,

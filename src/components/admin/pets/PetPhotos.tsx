@@ -38,7 +38,7 @@ export const PetPhotos: React.FC<Props> = ({ selectedPet }) => {
           history.push(`/admin/pets`);
         })
       );
-    } catch (err) {
+    } catch (err: any) {
       toast.error(err);
     } finally {
       setLoading(false);
@@ -56,15 +56,21 @@ export const PetPhotos: React.FC<Props> = ({ selectedPet }) => {
               as='h3'
               textAlign='center'
               content={
-                selectedPet?.photosUrl?.length! < 2
+                selectedPet?.photosUrl?.length! <= 2
                   ? selectedPet
-                    ? `Agregar mas Fotos a ${toTitleCase(selectedPet.name)}`
+                    ? `Agregar mas Fotos a ${toTitleCase(
+                        selectedPet.name
+                      )} (puede agregar ${3 - selectedPet.photosUrl?.length!})`
                     : 'Agregar Fotos'
                   : `${selectedPet?.name} ya tiene 3 fotos ya no se puede subir mas.`
               }
             />
-            {selectedPet?.photosUrl?.length! < 2 && (
-              <PhotosDropzone handleSubmit={handlePhotosSubmit} setFiles={setFiles} />
+            {selectedPet?.photosUrl?.length! <= 2 && (
+              <PhotosDropzone
+                selectedPet={selectedPet}
+                handleSubmit={handlePhotosSubmit}
+                setFiles={setFiles}
+              />
             )}
           </Grid.Column>
         )}
