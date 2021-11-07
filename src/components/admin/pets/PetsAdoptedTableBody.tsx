@@ -41,7 +41,7 @@ export const PetsAdoptedTableBody: React.FC<Props> = ({ petsData }) => {
             <Table.Cell content={pet.location} />
             <Table.Cell
               content={
-                pet.adopteeId.name
+                !!pet.adopteeId.name
                   ? `${pet?.adopteeId?.name} ${pet?.adopteeId?.lastName}/${
                       pet?.adopteeId?.phone || pet?.adopteeId?.email
                     }`
