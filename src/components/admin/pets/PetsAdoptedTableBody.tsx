@@ -5,7 +5,6 @@ import { Confirm, Icon, Table } from 'semantic-ui-react';
 import { deletePet, updateFollowUpDate } from '../../../actions/pets/pets';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { toTitleCase } from '../../../util/upperCase';
-import { format } from 'date-fns';
 interface Props {
   petsData: PetsData[];
 }
@@ -41,7 +40,7 @@ export const PetsAdoptedTableBody: React.FC<Props> = ({ petsData }) => {
             <Table.Cell content={pet.location} />
             <Table.Cell
               content={
-                pet.adopteeId.name
+                !!pet.adopteeId.name
                   ? `${pet?.adopteeId?.name} ${pet?.adopteeId?.lastName}/${
                       pet?.adopteeId?.phone || pet?.adopteeId?.email
                     }`
