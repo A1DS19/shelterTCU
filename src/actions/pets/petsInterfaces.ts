@@ -16,6 +16,7 @@ export interface PetsData {
   adopteeId?: any;
   employee?: string;
   followUpDate?: Date;
+  cedulaAdoptee?: string;
 }
 
 export interface UpdatePageNumber {

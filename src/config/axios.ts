@@ -9,7 +9,4 @@ export const api = axios.create({
     process.env.NODE_ENV === 'production'
       ? 'https://server-tcu-2021.herokuapp.com'
       : 'http://localhost:5000',
-  headers: {
-    Authorization: `bearer ${localStorage.getItem('token')}`,
-  },
 });

@@ -59,13 +59,13 @@ export const PetsAdoptedTableBody: React.FC<Props> = ({ petsData }) => {
             <Table.Cell collapsing>
               <Icon
                 link
-                onClick={() => dispatch(updateFollowUpDate(pet._id!))}
+                onClick={() => dispatch(updateFollowUpDate(pet._id! as any))}
                 size='large'
                 name='calendar check outline'
               />
               <Icon
                 link
-                onClick={() => openDeleteConfirm(pet._id!, pet.name)}
+                onClick={() => openDeleteConfirm(pet._id! as any, pet.name)}
                 size='large'
                 color='red'
                 name='delete'

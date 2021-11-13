@@ -53,7 +53,9 @@ export const PetListAdopted: React.FC<PetListAdoptedProps> = ({}) => {
         placeholder='Buscar Mascota'
         onChange={(e) => setFilter(e.target.value)}
       />
-      <Button onClick={() => dispatch(fetchPetByName(page, filter))}>BUSCAR</Button>
+      <Button onClick={() => dispatch(fetchPetByName(page, filter, 'adopted'))}>
+        BUSCAR
+      </Button>
 
       <Table celled>
         <Table.Header>

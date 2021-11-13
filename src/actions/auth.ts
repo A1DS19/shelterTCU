@@ -53,14 +53,14 @@ export const signInUser = (user: AuthPayload) => {
     try {
       dispatch(asyncActionStart());
       const { data } = await api.post('/auth/login', user);
-      dispatch<SignInAction>({ type: types.SIGNED_IN, payload: data });
+      dispatch<SignInAction>({ type: types.SIGNED_IN, payload: data.user });
       console.log(data);
 
       localStorage.setItem('token', data.token);
-      localStorage.setItem('userId', data.id);
+      localStorage.setItem('userId', data.user.id);
       dispatch(closeModal());
     } catch (error: any) {
-      toast.error(error.response.data.err);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -72,12 +72,12 @@ export const registerUser = (user: AuthPayload) => {
     try {
       dispatch(asyncActionStart());
       const { data } = await api.post('/auth/register', user);
-      dispatch<SignInAction>({ type: types.SIGNED_IN, payload: data });
+      dispatch<SignInAction>({ type: types.SIGNED_IN, payload: data.user });
       localStorage.setItem('token', data.token);
-      localStorage.setItem('userId', data.id);
+      localStorage.setItem('userId', data.user.id);
       dispatch(closeModal());
     } catch (error: any) {
-      toast.error(error.response.data.err);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -88,7 +88,12 @@ export const fetchCurrentUser = (userId: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/auth/user/${userId}`);
+      const { data } = await api.get(`/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
       data &&
         dispatch<FetchCurrentUserAction>({
           type: types.FETCH_CURRENT_USER,
@@ -106,8 +111,14 @@ export const addFavorite = (userId: string | null, petId: string, exists: boolea
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.put(
-        `/auth/user/add-favorite/${userId}/${petId}/${exists}`
+      const { data } = await api.patch(
+        `/users/add-favorite-pets/${userId}/${petId}/${exists}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
       );
       dispatch<FetchCurrentUserAction>({ type: types.FETCH_CURRENT_USER, payload: data });
 
@@ -129,8 +140,15 @@ export const getFavorite = (userId: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/auth/user/get-favorite/${userId}`);
-      dispatch<FecthUserWishlist>({ type: types.FETCH_USER_WISHLIST, payload: data });
+      const { data } = await api.get(`/users/get-favorite-pets/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      dispatch<FecthUserWishlist>({
+        type: types.FETCH_USER_WISHLIST,
+        payload: data.wishlist,
+      });
     } catch (error: any) {
       throw error;
     } finally {
@@ -146,7 +164,13 @@ export const updateCurrentUser = (
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.put(`/auth/user/${userId}`, user);
+      const { data } = await api.patch(`/users/${userId}`, user, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      console.log(data);
 
       dispatch<UpdateCurrentUserAction>({
         type: types.UPDATE_CURRENT_USER,
@@ -154,7 +178,9 @@ export const updateCurrentUser = (
       });
       toast.success('Datos actualizados');
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      error.response.data.message.forEach((msg: string) => {
+        toast.error(msg);
+      });
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -170,10 +196,16 @@ export const updateUserPassword = (userId: string | null, password: Object) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.put(`/auth/user-password/${userId}`, password);
+      const { data } = await api.patch(`/users/reset-password/${userId}`, password, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       toast.success(data.msg);
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      error.response.data.message.forEach((msg: string) => {
+        toast.error(msg);
+      });
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -184,11 +216,17 @@ export const deleteUser = (userId: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.delete(`/auth/user/${userId}`);
-      toast.success(data.msg);
-      signOutUser();
+      await api.delete(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      toast.success('Usuario eliminado');
+      dispatch(signOutUser());
     } catch (err: any) {
-      toast.error(err.response.data.msg);
+      err.response.data.message.forEach((msg: string) => {
+        toast.error(msg);
+      });
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -213,7 +251,9 @@ export const updateUserPFP = (userId: string | null, image: File[], cb: () => vo
       });
       cb();
     } catch (err: any) {
-      toast.error(err.response.data.msg);
+      err.response.data.message.forEach((msg: string) => {
+        toast.error(msg);
+      });
     } finally {
       dispatch(asyncActionFinish());
     }

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Dropdown, Icon, Image, Menu } from 'semantic-ui-react';
+import { Dropdown, Icon, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AuthPayload } from '../../actions/auth';
 import { AdminMenu } from './AdminMenu';

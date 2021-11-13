@@ -1,9 +1,5 @@
 import { toast } from 'react-toastify';
-import {
-  asyncActionStart,
-  asyncActionFinish,
-  asyncActionError,
-} from '../loading/loading';
+import { asyncActionStart, asyncActionFinish } from '../loading/loading';
 import { Dispatch } from 'redux';
 import {
   ClearSelectedPet,
@@ -25,7 +21,7 @@ export const fetchPets = (page: number, filtro?: 'disponible' | 'adoptado') => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/adoptions/pets?page=${page}`);
+      const { data } = await api.get(`/pets?page=${page}`);
 
       let filterData;
       switch (filtro) {
@@ -61,7 +57,11 @@ export const fetchAdoptedPets = (page: number) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/adoptions/adopted-pets?page=${page}`);
+      const { data } = await api.get(`/pets/pet/adopted-pets?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
       return dispatch<FetchPets>({
         type: types.FETCH_PETS_DATA,
@@ -75,18 +75,22 @@ export const fetchAdoptedPets = (page: number) => {
   };
 };
 
-export const fetchPetByName = (page: number, name: string) => {
+export const fetchPetByName = (page: number, name: string, status: 'adopted' | 'all') => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.post(`/adoptions/pet/get-by-name`, { name: name });
+      const { data } = await api.get(`/pets/pet/get-by-name/${name}?status=${status}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
       return dispatch<FetchPets>({
         type: types.FETCH_PETS_DATA,
-        payload: { pets: data.pets, totalPages: page },
+        payload: { pets: data, totalPages: page },
       });
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -97,7 +101,7 @@ export const fetchSelectedPet = (pet: string) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.get(`/adoptions/pet/${pet}`);
+      const { data } = await api.get(`/pets/id/${pet}`);
       dispatch<FetchSelectedPet>({ type: types.FETCH_SELECTED_PET, payload: data });
     } catch (error: any) {
       toast.error(error.response.data);
@@ -111,12 +115,16 @@ export const createPet = (pet: PetsData, cb: () => void) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.post('/adoptions/pet', pet);
+      const { data } = await api.post('/pets', pet, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       dispatch<CreatePet>({ type: types.CREATE_PET, payload: data });
-      toast.success(data.msg);
+      toast.success('Mascota creada');
       cb();
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -127,12 +135,16 @@ export const updatePet = (petId: string, pet: PetsData, cb: () => void) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.put(`/adoptions/pet/${petId}`, pet);
+      const { data } = await api.patch(`/pets/${petId}`, pet, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       dispatch<UpdatePet>({ type: types.UPDATE_PET, payload: data });
-      toast.success(data.msg);
+      toast.success('Mascota actualizada');
       cb();
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -143,11 +155,15 @@ export const updateFollowUpDate = (petId: string) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.put(`/adoptions/pet/update-followUpDate/${petId}`);
+      const { data } = await api.patch(`/pets/pet/update-followUpDate/${petId}`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       dispatch<UpdatePet>({ type: types.UPDATE_PET, payload: data });
-      toast.success(data.msg);
+      toast.success('Mascota actualizada');
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -158,11 +174,15 @@ export const deletePet = (id: string | null) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.delete(`/adoptions/pet/${id}`);
+      await api.delete(`/pets/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       dispatch<DeletePet>({ type: types.DELETE_PET, payload: id });
-      toast.success(data.msg);
+      toast.success('Mascota eliminada');
     } catch (error: any) {
-      toast.error(error.response.data.msg);
+      toast.error(error.response.data.message);
     } finally {
       dispatch(asyncActionFinish());
     }
@@ -188,7 +208,7 @@ export const addPetsPictures = (petId: string, images: any[], cb: () => void) =>
     const formData = new FormData();
 
     for (let i = 0; i < images.length; i++) {
-      formData.append('images[]', images[i]);
+      formData.append('images', images[i]);
     }
 
     // formData.append('images[]', images[0]);
@@ -197,16 +217,17 @@ export const addPetsPictures = (petId: string, images: any[], cb: () => void) =>
 
     try {
       dispatch(asyncActionStart());
-      const { data } = await api.post(`/adoptions/pet/upload/${petId}`, formData, {
+      const { data } = await api.post(`/pets/upload/${petId}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
+
       dispatch<UpdatePet>({
         type: types.UPDATE_PET,
         payload: data,
       });
-      toast.success(data.msg);
+      toast.success(`${images.length >= 1 ? 'Images agregadas' : 'Imagen agregada'} `);
       cb();
     } catch (err: any) {
       toast.error(err.response.data.msg);

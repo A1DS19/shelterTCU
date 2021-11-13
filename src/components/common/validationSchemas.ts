@@ -88,8 +88,13 @@ export const createPetValidationSchema = Yup.object({
     .notRequired()
     .when('adopted', {
       is: (val: string) => val !== 'false',
-      then: Yup.string().required('La cedula del adoptante es requerida'),
+      then: Yup.string()
+        .required('Debe ingresar su numero de cedula')
+        .matches(/^[0-9]+$/, 'Numero de cedula invalido')
+        .min(9, 'Numero de cedula invalido')
+        .max(9, 'Numero de cedula invalido'),
     }),
+
   employee: Yup.string()
     .notRequired()
     .when('adopted', {

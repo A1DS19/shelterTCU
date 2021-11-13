@@ -58,13 +58,13 @@ export const PetsTableBody: React.FC<Props> = ({ petsData }) => {
             <Table.Cell collapsing>
               <Icon
                 link
-                onClick={() => history.push(`/admin/pets/${pet._id}`)}
+                onClick={() => history.push(`/admin/pets/${pet._id as any}`)}
                 size='large'
                 name='edit'
               />
               <Icon
                 link
-                onClick={() => openDeleteConfirm(pet._id!, pet.name)}
+                onClick={() => openDeleteConfirm(pet._id! as any, pet.name)}
                 size='large'
                 color='red'
                 name='delete'

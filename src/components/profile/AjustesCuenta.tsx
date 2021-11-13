@@ -45,7 +45,7 @@ export const AjustesCuenta: React.FC<Props> = ({ loading, currentUser }) => {
             helpers.setSubmitting(true);
             dispatch(updateUserPassword(currentUser?.id?.toString()!, values));
             history.push(`/`);
-          } catch (error) {
+          } catch (error: any) {
             helpers.setErrors({ error: error.message });
           } finally {
             helpers.setSubmitting(false);
