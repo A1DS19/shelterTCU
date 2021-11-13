@@ -47,7 +47,9 @@ export const PetList = () => {
         placeholder='Buscar Mascota'
         onChange={(e) => setFilter(e.target.value)}
       />
-      <Button onClick={() => dispatch(fetchPetByName(page, filter))}>BUSCAR</Button>
+      <Button onClick={() => dispatch(fetchPetByName(page, filter, 'all'))}>
+        BUSCAR
+      </Button>
 
       <Table celled>
         <Table.Header>

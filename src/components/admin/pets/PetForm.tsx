@@ -52,6 +52,8 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
     return <LoaderComponent />;
   }
 
+  console.log(selectedPet);
+
   const initialValues: PetsData = {
     id: selectedPet?.id!,
     name: selectedPet?.name!,
@@ -63,7 +65,7 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
     size: selectedPet?.size,
     adoptionDate: selectedPet?.adoptionDate,
     adoptionPlace: selectedPet?.adoptionPlace,
-    adopteeId: selectedPet?.adopteeId,
+    adopteeId: selectedPet?.cedulaAdoptee,
     employee: selectedPet?.employee,
   };
 
@@ -72,6 +74,7 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
       values.adoptionPlace = '';
       values.adopteeId = '';
       values.employee = '';
+      values.cedulaAdoptee = '';
     }
     try {
       selectedPet
@@ -151,18 +154,20 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
                           onBlur={props.handleBlur}
                         />
 
-                        <SelectInput
-                          label='Adoptado'
-                          name='adopted'
-                          placeholder='Esta Adoptado'
-                          value={props.values.adopted}
-                          onChange={props.handleChange}
-                          onBlur={props.handleBlur}
-                          options={[
-                            { key: 0, value: 'true', text: 'Si' },
-                            { key: 1, value: 'false', text: 'No' },
-                          ]}
-                        />
+                        {selectedPet && (
+                          <SelectInput
+                            label='Adoptado'
+                            name='adopted'
+                            placeholder='Esta Adoptado'
+                            value={props.values.adopted}
+                            onChange={props.handleChange}
+                            onBlur={props.handleBlur}
+                            options={[
+                              { key: 0, value: 'true', text: 'Si' },
+                              { key: 1, value: 'false', text: 'No' },
+                            ]}
+                          />
+                        )}
                       </Grid.Column>
                       <Grid.Column width={8}>
                         <SelectInput
