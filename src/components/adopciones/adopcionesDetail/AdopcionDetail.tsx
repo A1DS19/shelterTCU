@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Grid } from 'semantic-ui-react';
+import { Button, Grid, Header, Segment } from 'semantic-ui-react';
 import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearSelectedPet, fetchSelectedPet } from '../../../actions/pets/pets';
@@ -12,6 +12,7 @@ import { AdopcionDetailPetBreedList } from './AdopcionDetailPetBreedList';
 import { LoaderComponent } from '../../common/Loader';
 import { isMobileOnly } from 'react-device-detect';
 import { ErrorComponent } from '../../common/Error';
+import { Link } from 'react-router-dom';
 
 export interface MatchParams {
   id: string;
@@ -22,7 +23,7 @@ interface Props extends RouteComponentProps<MatchParams> {}
 export const AdopcionDetail = ({ match }: Props) => {
   const petId = match.params.id;
   const { petsData, selectedPet } = useSelector((state: StoreState) => state.pets);
-  const { authenticated, currentUser } = useSelector((state: StoreState) => state.auth);
+  const { authenticated } = useSelector((state: StoreState) => state.auth);
   const { loading, error } = useSelector((state: StoreState) => state.loading);
   const dispatch = useDispatch();
 
@@ -41,7 +42,20 @@ export const AdopcionDetail = ({ match }: Props) => {
     return <LoaderComponent />;
   }
 
-  console.log(currentUser);
+  if (!selectedPet) {
+    return (
+      <Segment placeholder>
+        <Header textAlign='center' content='Mascota no existe' />
+        <Button
+          as={Link}
+          to='/adoptions'
+          primary
+          style={{ marginTop: 20 }}
+          content='Volver a adopciones'
+        />
+      </Segment>
+    );
+  }
 
   return (
     <Fragment>
