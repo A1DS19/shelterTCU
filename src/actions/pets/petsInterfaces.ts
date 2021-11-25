@@ -1,6 +1,11 @@
 import { AuthPayload } from '../auth';
 import { types } from '../types';
 
+type PhotosPublicId = {
+  photoUrl: string;
+  photoId: string;
+};
+
 export interface PetsData {
   id?: number;
   _id?: string;
@@ -9,10 +14,12 @@ export interface PetsData {
   breed: string;
   adopted: string;
   photosUrl?: string[];
+  photosPublicId?: PhotosPublicId[];
   description: string;
   size?: 'pequeno' | 'grande';
   adoptionDate?: Date;
   adoptionPlace?: string;
+  interesados?: number;
   adopteeId?: any;
   employee?: string;
   followUpDate?: Date;

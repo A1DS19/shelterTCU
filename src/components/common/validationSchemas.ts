@@ -10,12 +10,18 @@ export const registerValidationSchema = Yup.object({
   email: Yup.string()
     .required('El email es requerido')
     .email('El email no tiene el formato correcto'),
-  displayName: Yup.string().required('El nombre de usuario es requerida'),
+  displayName: Yup.string().optional(),
   cedula: Yup.string()
     .required('Debe ingresar su numero de cedula')
     .matches(/^[0-9]+$/, 'Numero de cedula invalido')
     .min(9, 'Numero de cedula invalido')
     .max(9, 'Numero de cedula invalido'),
+  name: Yup.string().required('Debe ingresar su nombre'),
+  lastName: Yup.string().required('Debe ingresar su apellido'),
+  phone: Yup.string()
+    .matches(/^[0-9]+$/, 'Numero telefonico invalido')
+    .min(8, 'Numero telefonico invalido')
+    .max(8, 'Numero telefonico invalido'),
   password: Yup.string()
     .required('La contrasena es requerida')
     .min(6, 'La contrasena debe tener minimo 6 digitos'),

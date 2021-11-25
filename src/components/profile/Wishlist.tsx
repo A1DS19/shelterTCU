@@ -1,16 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Header, Image, Icon, Message, Segment, Card } from 'semantic-ui-react';
+import {
+  Grid,
+  Header,
+  Image,
+  Icon,
+  Message,
+  Segment,
+  Card,
+  Button,
+} from 'semantic-ui-react';
 import { addFavorite, getFavorite } from '../../actions/auth';
 import { StoreState } from '../../reducers';
 import { isMobileOnly } from 'react-device-detect';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { LoaderComponent } from '../common/Loader';
 import { toTitleCase } from '../../util/upperCase';
+import {
+  FacebookShareButton,
+  RedditShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  TelegramShareButton,
+} from 'react-share';
 
 interface WishlistProps {}
 
-export const Wishlist: React.FC<WishlistProps> = ({}): JSX.Element => {
+export const Wishlist: React.FC<WishlistProps> = (): JSX.Element => {
   const { currentUser } = useSelector((state: StoreState) => state.auth);
   const { wishlist } = useSelector((state: StoreState) => state.users);
   const { loading } = useSelector((state: StoreState) => state.loading);
@@ -152,9 +168,63 @@ export const Wishlist: React.FC<WishlistProps> = ({}): JSX.Element => {
     );
   };
 
+  const renderSocialShare = () => (
+    <Fragment>
+      <Header
+        style={{ marginTop: 0, marginBottom: '10px' }}
+        as='h3'
+        content='COMPARTIR MIS FAVORITOS'
+      />
+      <FacebookShareButton
+        url={`Mira las mascotas en las que estoy interesad@ ${window.location.href}`}
+      >
+        <Button circular color='facebook' icon='facebook' />
+      </FacebookShareButton>
+
+      <RedditShareButton
+        url={`Mira las mascotas en las que estoy interesad@ ${window.location.href}`}
+      >
+        <Button circular color='orange' icon='reddit' />
+      </RedditShareButton>
+
+      <TwitterShareButton
+        url={`Mira las mascotas en las que estoy interesad@ ${window.location.href}`}
+      >
+        <Button circular color='twitter' icon='twitter' />
+      </TwitterShareButton>
+
+      <WhatsappShareButton
+        url={`Mira las mascotas en las que estoy interesad@ ${window.location.href}`}
+      >
+        <Button circular color='green' icon='whatsapp' />
+      </WhatsappShareButton>
+
+      <TelegramShareButton
+        url={`Mira las mascotas en las que estoy interesad@ ${window.location.href}`}
+      >
+        <Button circular color='linkedin' icon='telegram plane' />
+      </TelegramShareButton>
+    </Fragment>
+  );
+
   return (
     <React.Fragment>
-      <Header content='MASCOTAS FAVORITAS' />
+      {isMobileOnly ? (
+        <div style={{ textAlign: 'center' }}>
+          {' '}
+          <Header content='MASCOTAS FAVORITAS' />
+          {renderSocialShare()}
+        </div>
+      ) : (
+        <Grid divided='vertically' columns={2}>
+          <Grid.Column>
+            <Header content='MASCOTAS FAVORITAS' />
+          </Grid.Column>
+          <Grid.Column>
+            <div style={{ textAlign: 'center' }}>{renderSocialShare()}</div>
+          </Grid.Column>
+        </Grid>
+      )}
       {isMobileOnly ? renderMobileList() : renderDesktopList()}
     </React.Fragment>
   );

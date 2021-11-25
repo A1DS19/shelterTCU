@@ -237,6 +237,33 @@ export const addPetsPictures = (petId: string, images: any[], cb: () => void) =>
   };
 };
 
+export const deleteImg = (petId: string, photoId: string, photoUrl: string) => {
+  return async (dispatch: Dispatch) => {
+    const body = {
+      petId,
+      photoId,
+      photoUrl,
+    };
+    try {
+      dispatch(asyncActionStart());
+      const { data } = await api.post(`/pets/delete-img`, body, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      console.log(data);
+
+      toast.success(data.msg);
+      dispatch<FetchSelectedPet>({ type: types.FETCH_SELECTED_PET, payload: data.pet });
+    } catch (error: any) {
+      toast.error(error.response.data.msg);
+    } finally {
+      dispatch(asyncActionFinish());
+    }
+  };
+};
+
 export const sendEmail = (petId: any, emailData: Object) => {
   return async (dispatch: Dispatch) => {
     let newEmailData = {};

@@ -35,11 +35,6 @@ export const Footer = () => {
             </List.Item>
 
             <List.Item>
-              <List.Icon name='phone' />
-              <List.Content content='+506 8815 2514' />
-            </List.Item>
-
-            <List.Item>
               <List.Icon name='mail' />
               <List.Content content='info@territoriodezaguates.com' />
             </List.Item>

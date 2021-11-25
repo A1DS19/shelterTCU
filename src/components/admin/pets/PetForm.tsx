@@ -179,7 +179,8 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
                           onBlur={props.handleBlur}
                           options={[
                             { key: 0, value: 'pequeño', text: 'Pequeño' },
-                            { key: 1, value: 'grande', text: 'Grande' },
+                            { key: 1, value: 'mediano', text: 'Mediano' },
+                            { key: 2, value: 'grande', text: 'Grande' },
                           ]}
                         />
 

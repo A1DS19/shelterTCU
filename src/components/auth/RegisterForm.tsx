@@ -14,8 +14,11 @@ import { useState } from 'react';
 export interface RegisterFormValues {
   email: string;
   password: string;
-  displayName: string;
+  displayName?: string;
+  name: string;
+  lastName: string;
   cedula: string;
+  phone: string;
   authError?: string;
   donation?: string;
 }
@@ -26,8 +29,11 @@ const RegisterForm = () => {
   const initialValues: RegisterFormValues = {
     email: '',
     displayName: '',
+    name: '',
+    lastName: '',
     password: '',
     cedula: '',
+    phone: '',
     donation: JSON.stringify(adopt),
   };
 
@@ -42,8 +48,9 @@ const RegisterForm = () => {
         ) => {
           try {
             helpers.setSubmitting(true);
+            values.displayName = `${values.name}${Math.random().toFixed(2)}`;
             dispatch(registerUser(values));
-          } catch (error) {
+          } catch (error: any) {
             helpers.setErrors({ authError: error });
           } finally {
             helpers.setSubmitting(false);
@@ -62,10 +69,19 @@ const RegisterForm = () => {
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
+
             <TextInput
-              name='displayName'
+              name='name'
               placeholder='NOMBRE'
-              value={props.values.displayName}
+              value={props.values.name}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+
+            <TextInput
+              name='lastName'
+              placeholder='APELLIDO'
+              value={props.values.lastName}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
             />
@@ -79,6 +95,14 @@ const RegisterForm = () => {
             />
 
             <TextInput
+              name='phone'
+              placeholder='NUMERO DE TELEFONO'
+              value={props.values.phone}
+              onChange={props.handleChange}
+              onBlur={props.handleBlur}
+            />
+
+            <TextInput
               type='password'
               name='password'
               placeholder='CONTRASENA'
@@ -87,7 +111,7 @@ const RegisterForm = () => {
               onBlur={props.handleBlur}
             />
 
-            <Checkbox
+            {/* <Checkbox
               style={{ marginBottom: '10px' }}
               id='donation'
               name='donation'
@@ -98,7 +122,7 @@ const RegisterForm = () => {
               }}
               onBlur={props.handleBlur}
               label='Si decido adoptar a una mascota, estoy dispuesto a hacer una donación de 10 mil colones para gastos de adopción.'
-            />
+            /> */}
 
             <Button
               loading={props.isSubmitting}

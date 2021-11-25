@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Icon, Item, Segment } from 'semantic-ui-react';
+import { Divider, Icon, Item, Label, Segment } from 'semantic-ui-react';
 import { PetsData } from '../../../actions/pets/petsInterfaces';
 import { toTitleCase } from '../../../util/upperCase';
 
@@ -10,6 +10,14 @@ interface Props {
 export const AdopcionDetailInfo: React.FC<Props> = ({ selectedPet }) => {
   return (
     <Segment>
+      <Label as='button' color='orange' ribbon>
+        {selectedPet?.interesados! === 0 &&
+          `${selectedPet?.interesados!} personas interesadas`}
+        {selectedPet?.interesados! === 1 &&
+          `${selectedPet?.interesados!} persona interesada`}
+        {selectedPet?.interesados! > 1 &&
+          `${selectedPet?.interesados!} personas interesadas`}
+      </Label>
       <Item.Group>
         <Item.Content>
           <Item.Header as='h1' content={toTitleCase(selectedPet?.name || '')} />

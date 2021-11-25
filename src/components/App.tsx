@@ -38,7 +38,7 @@ function App() {
           <Route path='/adoptions' component={AdopcionDashboard} />
           <Route path='/adoption/:id' component={AdopcionDetail} />
           <AuthRoute path='/profile/:id' Component={ProfilePage} />
-          <AuthRoute path='/wishlist/:userId' Component={Wishlist} />
+          <Route path='/wishlist/:userId' component={Wishlist} />
           <AdminRoute exact path='/admin/pets' Component={PetIndex} />
           <AdminRoute exact path='/admin/users' Component={UserList} />
           <AdminRoute

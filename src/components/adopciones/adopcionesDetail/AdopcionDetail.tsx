@@ -7,7 +7,6 @@ import { clearSelectedPet, fetchSelectedPet } from '../../../actions/pets/pets';
 import { StoreState } from '../../../reducers';
 import { AdopcionDetailInfo } from './AdopcionDetailInfo';
 import { AdopcionDetailSidebar } from './AdopcionDetailSidebar';
-import { AdopcionDetailContact } from './AdopcionDetailContact';
 import { AdopcionDetailPetBreedList } from './AdopcionDetailPetBreedList';
 import { LoaderComponent } from '../../common/Loader';
 import { isMobileOnly } from 'react-device-detect';
