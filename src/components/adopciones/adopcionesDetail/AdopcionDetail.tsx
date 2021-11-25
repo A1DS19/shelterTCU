@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import { Button, Grid, Header, Segment } from 'semantic-ui-react';
 import { Carousel } from 'react-responsive-carousel';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +25,7 @@ export const AdopcionDetail = ({ match }: Props) => {
   const { authenticated } = useSelector((state: StoreState) => state.auth);
   const { loading, error } = useSelector((state: StoreState) => state.loading);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchSelectedPet(petId.toString()!));
@@ -58,6 +59,14 @@ export const AdopcionDetail = ({ match }: Props) => {
 
   return (
     <Fragment>
+      <div style={{ marginBottom: '10px' }}>
+        <Button
+          color='orange'
+          content='Volver'
+          icon='arrow left'
+          onClick={() => history.goBack()}
+        />
+      </div>
       <Grid columns={3} relaxed='very'>
         <Grid.Row>
           <Grid.Column mobile={16} computer={16}>
