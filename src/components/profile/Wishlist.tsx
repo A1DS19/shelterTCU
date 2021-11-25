@@ -213,7 +213,7 @@ export const Wishlist: React.FC<WishlistProps> = (): JSX.Element => {
         <div style={{ textAlign: 'center' }}>
           {' '}
           <Header content='MASCOTAS FAVORITAS' />
-          {renderSocialShare()}
+          {currentUser?._id === userId && renderSocialShare()}
         </div>
       ) : (
         <Grid divided='vertically' columns={2}>
@@ -221,7 +221,9 @@ export const Wishlist: React.FC<WishlistProps> = (): JSX.Element => {
             <Header content='MASCOTAS FAVORITAS' />
           </Grid.Column>
           <Grid.Column>
-            <div style={{ textAlign: 'center' }}>{renderSocialShare()}</div>
+            <div style={{ textAlign: 'center' }}>
+              {currentUser?._id === userId && renderSocialShare()}
+            </div>
           </Grid.Column>
         </Grid>
       )}
