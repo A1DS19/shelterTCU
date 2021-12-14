@@ -31,7 +31,7 @@ export const PhotoDropzone: React.FC<Props> = ({ setFiles }) => {
         <div {...getRootProps({ style })}>
           <input {...getInputProps()} />
           <p style={{ textAlign: 'center', marginTop: '20px' }}>
-            Arrastre o click aqui para subir foto
+            Arrastre o click aquí para subir foto
           </p>
         </div>
       </section>

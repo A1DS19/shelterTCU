@@ -80,7 +80,7 @@ export const UsersTableBody: React.FC<Props> = ({ usersData }) => {
         </Table.Row>
       ))}
       <Confirm
-        content={`Esta seguro que desea eliminar a ${userToDelete.name}?`}
+        content={`¿Está seguro que desea eliminar a ${userToDelete.name}?`}
         cancelButton='CANCELAR'
         confirmButton='ELIMINAR'
         size='small'

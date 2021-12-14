@@ -115,7 +115,7 @@ export const PetPhotos: React.FC<Props> = ({ selectedPet }) => {
         </Grid.Row>
       </Grid>
       <Confirm
-        content={`Esta seguro que desea eliminar la fotografia?`}
+        content={`¿Está seguro que desea eliminar la fotografia?`}
         cancelButton='CANCELAR'
         confirmButton='ELIMINAR'
         size='small'

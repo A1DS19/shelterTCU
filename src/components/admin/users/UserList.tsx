@@ -41,14 +41,14 @@ export const UserList = () => {
       <Table celled>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>CEDULA</Table.HeaderCell>
+            <Table.HeaderCell>CÉDULA</Table.HeaderCell>
             <Table.HeaderCell>EMAIL</Table.HeaderCell>
-            <Table.HeaderCell>TELEFONO</Table.HeaderCell>
+            <Table.HeaderCell>TELÉFONO</Table.HeaderCell>
             <Table.HeaderCell>DIRECCIÓN</Table.HeaderCell>
             <Table.HeaderCell>NOMBRE</Table.HeaderCell>
             <Table.HeaderCell>ADMIN</Table.HeaderCell>
             <Table.HeaderCell>DONANTE</Table.HeaderCell>
-            <Table.HeaderCell>ACCION</Table.HeaderCell>
+            <Table.HeaderCell>ACCIÓN</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 

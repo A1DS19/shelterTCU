@@ -108,7 +108,7 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
         <Header
           content={
             selectedPet
-              ? `Modificar Informacion de ${toTitleCase(selectedPet.name)}`
+              ? `Modificar Información de ${toTitleCase(selectedPet.name)}`
               : 'Crear Mascota'
           }
         />
@@ -137,9 +137,9 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
                         />
 
                         <TextInput
-                          label='Ubicacion'
+                          label='Ubicación'
                           name='location'
-                          placeholder='Ubicacion'
+                          placeholder='Ubicación'
                           value={props.values.location}
                           onChange={props.handleChange}
                           onBlur={props.handleBlur}
@@ -187,27 +187,27 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
                         {props.values.adopted !== 'false' && (
                           <React.Fragment>
                             <DateInput
-                              label='Fecha de adopcion'
+                              label='Fecha de adopción'
                               name='adoptionDate'
-                              placeholder='Fecha de adopcion'
+                              placeholder='Fecha de adopción'
                               value={props.values.adoptionDate}
                               onChange={props.handleChange}
                               onBlur={props.handleBlur}
                             />
 
                             <TextInput
-                              label='Lugar de adopcion'
+                              label='Lugar de adopción'
                               name='adoptionPlace'
-                              placeholder='Lugar de adopcion'
+                              placeholder='Lugar de adopción'
                               value={props.values.adoptionPlace}
                               onChange={props.handleChange}
                               onBlur={props.handleBlur}
                             />
 
                             <TextInput
-                              label='Cedula de Adoptante'
+                              label='Cédula de Adoptante'
                               name='adopteeId'
-                              placeholder='Cedula'
+                              placeholder='Cédula'
                               value={props.values.adopteeId}
                               onChange={props.handleChange}
                               onBlur={props.handleBlur}
@@ -227,9 +227,9 @@ export const PetForm: React.FC<Props> = ({ match, location }) => {
                       />
                     )}
                     <TextArea
-                      label='Descripccion'
+                      label='Descripción'
                       name='description'
-                      placeholder='Descripccion'
+                      placeholder='Descripción'
                       value={props.values.description}
                       onChange={props.handleChange}
                       onBlur={props.handleBlur}

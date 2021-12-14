@@ -35,11 +35,11 @@ export const PhotosDropzone: React.FC<Props> = ({
         selectedPet?.photosUrl?.length! === 0 ? 3 : 3 - selectedPet?.photosUrl?.length!
       }
       accept='image/*'
-      inputContent='Arrastre o click aqui para subir foto'
+      inputContent='Arrastre o click aquí para subir foto'
       inputWithFilesContent={(files) => {
         console.log(files.length);
 
-        return `Puede agregar ${3 - files.length} mas`;
+        return `Puede agregar ${3 - files.length} más`;
       }}
       styles={styles}
     />

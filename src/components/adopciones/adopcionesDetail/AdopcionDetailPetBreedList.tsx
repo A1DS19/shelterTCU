@@ -31,7 +31,7 @@ export const AdopcionDetailPetBreedList: React.FC<Props> = ({
           <Header
             textAlign='center'
             as='h1'
-            content={`Mas rescates de raza ${selectedPet?.breed}`}
+            content={`Más rescates de raza ${selectedPet?.breed}`}
           />
           <Card.Group itemsPerRow={3} doubling stackable>
             {renderCurrentBreedPets}

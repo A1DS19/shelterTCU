@@ -144,9 +144,9 @@ export const UserForm: React.FC<Props> = ({ match, location }) => {
                     {!selectedUser && (
                       <TextInput
                         type='password'
-                        label='Contrasena'
+                        label='Contraseña'
                         name='password'
-                        placeholder='Contrasena'
+                        placeholder='Contraseña'
                         value={props.values.password}
                         onChange={props.handleChange}
                         onBlur={props.handleBlur}
@@ -196,25 +196,25 @@ export const UserForm: React.FC<Props> = ({ match, location }) => {
 
                   <Grid.Column width={8}>
                     <TextInput
-                      label='Direccion de usuario'
+                      label='Direción de usuario'
                       name='direction'
-                      placeholder='Direccion'
+                      placeholder='Direción'
                       value={props.values.direction}
                       onChange={props.handleChange}
                       onBlur={props.handleBlur}
                     />
                     <TextInput
-                      label='Cedula de usuario'
+                      label='Cédula de usuario'
                       name='cedula'
-                      placeholder='Cedula'
+                      placeholder='Cédula'
                       value={props.values.cedula}
                       onChange={props.handleChange}
                       onBlur={props.handleBlur}
                     />
                     <TextInput
-                      label='Telefono de usuario'
+                      label='Teléfono de usuario'
                       name='phone'
-                      placeholder='Telefono'
+                      placeholder='Teléfono'
                       value={props.values.phone}
                       onChange={props.handleChange}
                       onBlur={props.handleBlur}
@@ -252,7 +252,7 @@ export const UserForm: React.FC<Props> = ({ match, location }) => {
         </Formik>
       </Segment>
       <Confirm
-        content={`Esta seguro que desea generar una nueva contraseña?`}
+        content={`¿Está seguro que desea generar una nueva contraseña?`}
         cancelButton='CANCELAR'
         confirmButton='GENERAR'
         size='small'

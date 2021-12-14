@@ -25,7 +25,7 @@ const LoginForm = () => {
   };
 
   return (
-    <ModalWrapper header='INICIAR SESION' size='mini'>
+    <ModalWrapper header='INICIAR SESIÓN' size='mini'>
       <Formik
         initialValues={initialValues}
         validationSchema={loginValidationSchema}
@@ -36,7 +36,7 @@ const LoginForm = () => {
           try {
             helpers.setSubmitting(true);
             dispatch(signInUser(values));
-          } catch (error) {
+          } catch (error: any) {
             helpers.setErrors({ authError: error.response.data.msg });
           } finally {
             helpers.setSubmitting(false);
@@ -60,7 +60,7 @@ const LoginForm = () => {
               <TextInput
                 type='password'
                 name='password'
-                placeholder='CONTRASENA'
+                placeholder='CONTRASEÑA'
                 value={props.values.password}
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}

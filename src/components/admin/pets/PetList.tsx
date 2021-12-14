@@ -55,12 +55,12 @@ export const PetList = () => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>NOMBRE</Table.HeaderCell>
-            <Table.HeaderCell>UBICACION</Table.HeaderCell>
+            <Table.HeaderCell>UBICACIÓN</Table.HeaderCell>
             <Table.HeaderCell>RAZA</Table.HeaderCell>
             <Table.HeaderCell>ADOPTADO</Table.HeaderCell>
             <Table.HeaderCell>FOTOS</Table.HeaderCell>
-            <Table.HeaderCell>DESCRIPCCION</Table.HeaderCell>
-            <Table.HeaderCell>ACCION</Table.HeaderCell>
+            <Table.HeaderCell>DESCRIPCIÓN</Table.HeaderCell>
+            <Table.HeaderCell>ACCIÓN</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 

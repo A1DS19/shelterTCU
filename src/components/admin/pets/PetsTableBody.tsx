@@ -74,7 +74,7 @@ export const PetsTableBody: React.FC<Props> = ({ petsData }) => {
         </Fragment>
       ))}
       <Confirm
-        content={`Esta seguro que desea eliminar a ${petToDelete.name}?`}
+        content={`¿Está seguro que desea eliminar a ${petToDelete.name}?`}
         cancelButton='CANCELAR'
         confirmButton='ELIMINAR'
         size='small'

@@ -61,11 +61,11 @@ export const PetListAdopted: React.FC<PetListAdoptedProps> = ({}) => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>NOMBRE</Table.HeaderCell>
-            <Table.HeaderCell>UBICACION</Table.HeaderCell>
+            <Table.HeaderCell>UBICACIÓN</Table.HeaderCell>
             <Table.HeaderCell>ADOPTANTE</Table.HeaderCell>
-            <Table.HeaderCell>FECHA ADOPCION</Table.HeaderCell>
+            <Table.HeaderCell>FECHA ADOPCIÓN</Table.HeaderCell>
             <Table.HeaderCell>FECHA SEGUIMIENTO</Table.HeaderCell>
-            <Table.HeaderCell>ACCION</Table.HeaderCell>
+            <Table.HeaderCell>ACCIÓN</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 

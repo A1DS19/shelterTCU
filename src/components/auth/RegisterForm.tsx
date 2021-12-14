@@ -88,7 +88,7 @@ const RegisterForm = () => {
 
             <TextInput
               name='cedula'
-              placeholder='CEDULA'
+              placeholder='CÉDULA'
               value={props.values.cedula}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
@@ -96,7 +96,7 @@ const RegisterForm = () => {
 
             <TextInput
               name='phone'
-              placeholder='NUMERO DE TELEFONO'
+              placeholder='NÚMERO DE TELÉFONO'
               value={props.values.phone}
               onChange={props.handleChange}
               onBlur={props.handleBlur}
@@ -105,7 +105,7 @@ const RegisterForm = () => {
             <TextInput
               type='password'
               name='password'
-              placeholder='CONTRASENA'
+              placeholder='CONTRASEÑA'
               value={props.values.password}
               onChange={props.handleChange}
               onBlur={props.handleBlur}

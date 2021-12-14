@@ -149,12 +149,12 @@ export const AdopcionDetailSidebar: React.FC<Props> = ({
         <Header>
           {selectedPet?.adopted === 'true'
             ? 'La mascota se encuentra adoptada'
-            : 'La mascota esta disponible para adopcion'}
+            : 'La mascota esta disponible para adopción'}
         </Header>
       </Segment>
       <Segment color='red'>
         <Header>
-          La mascota en adopcion va en periodo de prueba, de no adaptarse a la familia la
+          La mascota en adopción va en período de prueba, de no adaptarse a la familia la
           mascota debe ser devuelta.
         </Header>
       </Segment>

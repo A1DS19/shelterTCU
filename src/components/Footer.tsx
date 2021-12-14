@@ -42,7 +42,7 @@ export const Footer = () => {
         </Grid.Column>
 
         <Grid.Column mobile={16} tablet={2} computer={2} floated='right'>
-          <Header as='h3' content='SIGUENOS' />
+          <Header as='h3' content='SÍGUENOS' />
           <Button
             circular
             color='facebook'
